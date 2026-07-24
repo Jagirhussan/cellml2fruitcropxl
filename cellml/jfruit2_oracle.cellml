@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model xmlns="http://www.cellml.org/cellml/2.0#" xmlns:cellml="http://www.cellml.org/cellml/2.0#" name="jfruit2_oracle">
+
+  <!-- ========================================== -->
+  <!--               UNIT DEFINITIONS             -->
+  <!-- ========================================== -->
+  <units name="day">
+    <unit units="second" multiplier="86400"/>
+  </units>
+  <units name="hour">
+    <unit units="second" multiplier="3600"/>
+  </units>
+  <units name="per_day">
+    <unit units="day" exponent="-1"/>
+  </units>
+  <units name="per_hour">
+    <unit units="hour" exponent="-1"/>
+  </units>
+  <units name="gram_per_day">
+    <unit units="gram"/>
+    <unit units="day" exponent="-1"/>
+  </units>
+
+  <!-- ========================================== -->
+  <!--         COMPONENT: ENVIRONMENT             -->
+  <!-- ========================================== -->
+  <component name="environment">
+    <variable name="t" units="day" interface="public"/>
+  </component>
+
+  <!-- ========================================== -->
+  <!--           COMPONENT: KINETICS              -->
+  <!-- ========================================== -->
+  <component name="kinetics">
+    <variable name="t" units="day" interface="public"/>
+    
+    <!-- State Variables [g C] -->
+    <variable name="mSuc" units="gram" initial_value="0.05" interface="public"/>
+    <variable name="mSor" units="gram" initial_value="0.02" interface="public"/>
+    <variable name="mGlu" units="gram" initial_value="0.01" interface="public"/>
+    <variable name="mFru" units="gram" initial_value="0.01" interface="public"/>
+    <variable name="mSta" units="gram" initial_value="0.01" interface="public"/>
+    <variable name="mSyn" units="gram" initial_value="0.00" interface="public"/>
+
+    <!-- External Forcing Input (Updated dynamically by Python wrapper) -->
+    <variable name="pasfls" units="gram_per_day" initial_value="0.0" interface="public"/>
+
+    <!-- Biophysical & Fraction Constants -->
+    <variable name="bssrat" units="dimensionless" initial_value="0.49"/>
+    <variable name="mass_frac_suc" units="dimensionless" initial_value="0.6526"/>
+    <variable name="mass_frac_sor" units="dimensionless" initial_value="0.3474"/>
+    <variable name="sig_suc" units="dimensionless" initial_value="0.42068"/>
+    <variable name="sig_sor" units="dimensionless" initial_value="0.39523"/>
+
+    <!-- Base Kinetic Rates (ka) [per_day] -->
+    <variable name="ka0" units="per_day" initial_value="0.05"/>
+    <variable name="ka1" units="per_day" initial_value="0.05"/>
+    <variable name="ka2" units="per_day" initial_value="0.02"/>
+    <variable name="ka3" units="per_day" initial_value="0.01"/>
+    <variable name="ka4" units="per_day" initial_value="0.01"/>
+    <variable name="ka5" units="per_day" initial_value="0.01"/>
+    <variable name="ka6" units="per_day" initial_value="0.05"/>
+    <variable name="ka7" units="per_day" initial_value="0.01"/>
+    <variable name="ka8" units="per_day" initial_value="0.01"/>
+    <variable name="ka9" units="per_day" initial_value="0.02"/>
+
+    <!-- Ontogenic Decay Exponents (kb) [per_hour] -->
+    <variable name="kb0" units="per_hour" initial_value="0.001"/>
+    <variable name="kb1" units="per_hour" initial_value="0.001"/>
+    <variable name="kb2" units="per_hour" initial_value="0.0"/>
+    <variable name="kb3" units="per_hour" initial_value="0.0"/>
+    <variable name="kb4" units="per_hour" initial_value="0.0"/>
+    <variable name="kb5" units="per_hour" initial_value="0.002"/>
+    <variable name="kb6" units="per_hour" initial_value="0.001"/>
+    <variable name="kb7" units="per_hour" initial_value="0.0"/>
+    <variable name="kb8" units="per_hour" initial_value="0.0"/>
+    <variable name="kb9" units="per_hour" initial_value="0.0"/>
+
+    <!-- Intermediates -->
+    <variable name="age_h" units="hour"/>
+    <variable name="sugar_flux_g_d" units="gram_per_day"/>
+    <variable name="in_Suc_d" units="gram_per_day"/>
+    <variable name="in_Sor_d" units="gram_per_day"/>
+    
+    <variable name="k0" units="per_day"/><variable name="flux_k0" units="gram_per_day"/>
+    <variable name="k1" units="per_day"/><variable name="flux_k1" units="gram_per_day"/>
+    <variable name="k2" units="per_day"/><variable name="flux_k2" units="gram_per_day"/>
+    <variable name="k3" units="per_day"/><variable name="flux_k3" units="gram_per_day"/>
+    <variable name="k4" units="per_day"/><variable name="flux_k4" units="gram_per_day"/>
+    <variable name="k5" units="per_day"/><variable name="flux_k5" units="gram_per_day"/>
+    <variable name="k6" units="per_day"/><variable name="flux_k6" units="gram_per_day"/>
+    <variable name="k7" units="per_day"/><variable name="flux_k7" units="gram_per_day"/>
+    <variable name="k8" units="per_day"/><variable name="flux_k8" units="gram_per_day"/>
+    <variable name="k9" units="per_day"/><variable name="flux_k9" units="gram_per_day"/>
+    
+    <variable name="flux_invertase_total" units="gram_per_day"/>
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <!-- Inputs & Intermediates -->
+      <apply><eq/><ci>age_h</ci><apply><times/><ci>t</ci><cn cellml:units="dimensionless">24.0</cn></apply></apply>
+      <apply><eq/><ci>sugar_flux_g_d</ci><apply><times/><ci>pasfls</ci><ci>bssrat</ci></apply></apply>
+      <apply><eq/><ci>in_Suc_d</ci><apply><times/><ci>sugar_flux_g_d</ci><ci>mass_frac_suc</ci><ci>sig_suc</ci></apply></apply>
+      <apply><eq/><ci>in_Sor_d</ci><apply><times/><ci>sugar_flux_g_d</ci><ci>mass_frac_sor</ci><ci>sig_sor</ci></apply></apply>
+
+      <!-- Kinematic Multipliers (Arrhenius is locked to 1.0 per python baseline) -->
+      <apply><eq/><ci>k0</ci><apply><times/><ci>ka0</ci><apply><exp/><apply><minus/><apply><times/><ci>kb0</ci><ci>age_h</ci></apply></apply></apply></apply></apply>
+      <apply><eq/><ci>k1</ci><apply><times/><ci>ka1</ci><apply><exp/><apply><minus/><apply><times/><ci>kb1</ci><ci>age_h</ci></apply></apply></apply></apply></apply>
+      <apply><eq/><ci>k2</ci><apply><times/><ci>ka2</ci><apply><exp/><apply><minus/><apply><times/><ci>kb2</ci><ci>age_h</ci></apply></apply></apply></apply></apply>
+      <apply><eq/><ci>k3</ci><apply><times/><ci>ka3</ci><apply><exp/><apply><minus/><apply><times/><ci>kb3</ci><ci>age_h</ci></apply></apply></apply></apply></apply>
+      <apply><eq/><ci>k4</ci><apply><times/><ci>ka4</ci><apply><exp/><apply><minus/><apply><times/><ci>kb4</ci><ci>age_h</ci></apply></apply></apply></apply></apply>
+      <apply><eq/><ci>k5</ci><apply><times/><ci>ka5</ci><apply><exp/><apply><minus/><apply><times/><ci>kb5</ci><ci>age_h</ci></apply></apply></apply></apply></apply>
+      <apply><eq/><ci>k6</ci><apply><times/><ci>ka6</ci><apply><exp/><apply><minus/><apply><times/><ci>kb6</ci><ci>age_h</ci></apply></apply></apply></apply></apply>
+      <apply><eq/><ci>k7</ci><apply><times/><ci>ka7</ci><apply><exp/><apply><minus/><apply><times/><ci>kb7</ci><ci>age_h</ci></apply></apply></apply></apply></apply>
+      <apply><eq/><ci>k8</ci><apply><times/><ci>ka8</ci><apply><exp/><apply><minus/><apply><times/><ci>kb8</ci><ci>age_h</ci></apply></apply></apply></apply></apply>
+      <apply><eq/><ci>k9</ci><apply><times/><ci>ka9</ci><apply><exp/><apply><minus/><apply><times/><ci>kb9</ci><ci>age_h</ci></apply></apply></apply></apply></apply>
+
+      <!-- Mass Fluxes -->
+      <apply><eq/><ci>flux_k0</ci><apply><times/><ci>k0</ci><ci>mSuc</ci></apply></apply>
+      <apply><eq/><ci>flux_k1</ci><apply><times/><ci>k1</ci><ci>mSuc</ci></apply></apply>
+      <apply><eq/><ci>flux_k2</ci><apply><times/><ci>k2</ci><ci>mSor</ci></apply></apply>
+      <apply><eq/><ci>flux_k3</ci><apply><times/><ci>k3</ci><ci>mFru</ci></apply></apply>
+      <apply><eq/><ci>flux_k4</ci><apply><times/><ci>k4</ci><ci>mSor</ci></apply></apply>
+      <apply><eq/><ci>flux_k5</ci><apply><times/><ci>k5</ci><ci>mGlu</ci></apply></apply>
+      <apply><eq/><ci>flux_k6</ci><apply><times/><ci>k6</ci><ci>mSuc</ci></apply></apply>
+      <apply><eq/><ci>flux_k7</ci><apply><times/><ci>k7</ci><ci>mSor</ci></apply></apply>
+      <apply><eq/><ci>flux_k8</ci><apply><times/><ci>k8</ci><ci>mSta</ci></apply></apply>
+      <apply><eq/><ci>flux_k9</ci><apply><times/><ci>k9</ci><ci>mGlu</ci></apply></apply>
+      
+      <apply><eq/><ci>flux_invertase_total</ci><apply><plus/><ci>flux_k0</ci><ci>flux_k1</ci></apply></apply>
+
+      <!-- Carbon Mass Balance ODEs -->
+      <apply><eq/>
+        <apply><diff/><bvar><ci>t</ci></bvar><ci>mSuc</ci></apply>
+        <apply><plus/>
+          <apply><minus/>
+            <apply><minus/><ci>in_Suc_d</ci><ci>flux_invertase_total</ci></apply>
+            <ci>flux_k6</ci>
+          </apply>
+          <ci>flux_k3</ci>
+        </apply>
+      </apply>
+
+      <apply><eq/>
+        <apply><diff/><bvar><ci>t</ci></bvar><ci>mSor</ci></apply>
+        <apply><minus/>
+          <apply><minus/>
+            <apply><minus/><ci>in_Sor_d</ci><ci>flux_k2</ci></apply>
+            <ci>flux_k4</ci>
+          </apply>
+          <ci>flux_k7</ci>
+        </apply>
+      </apply>
+
+      <apply><eq/>
+        <apply><diff/><bvar><ci>t</ci></bvar><ci>mGlu</ci></apply>
+        <apply><minus/>
+          <apply><minus/>
+            <apply><plus/>
+              <apply><plus/>
+                <apply><times/><cn cellml:units="dimensionless">0.5</cn><ci>flux_invertase_total</ci></apply>
+                <ci>flux_k4</ci>
+              </apply>
+              <ci>flux_k8</ci>
+            </apply>
+            <ci>flux_k5</ci>
+          </apply>
+          <ci>flux_k9</ci>
+        </apply>
+      </apply>
+
+      <apply><eq/>
+        <apply><diff/><bvar><ci>t</ci></bvar><ci>mFru</ci></apply>
+        <apply><plus/>
+          <apply><minus/>
+            <apply><plus/>
+              <apply><times/><cn cellml:units="dimensionless">0.5</cn><ci>flux_invertase_total</ci></apply>
+              <ci>flux_k2</ci>
+            </apply>
+            <ci>flux_k3</ci>
+          </apply>
+          <apply><times/><cn cellml:units="dimensionless">0.5</cn><ci>flux_k6</ci></apply>
+        </apply>
+      </apply>
+
+      <apply><eq/>
+        <apply><diff/><bvar><ci>t</ci></bvar><ci>mSta</ci></apply>
+        <apply><minus/>
+          <apply><plus/>
+            <apply><times/><cn cellml:units="dimensionless">0.5</cn><ci>flux_k6</ci></apply>
+            <ci>flux_k7</ci>
+          </apply>
+          <ci>flux_k8</ci>
+        </apply>
+      </apply>
+
+      <apply><eq/>
+        <apply><diff/><bvar><ci>t</ci></bvar><ci>mSyn</ci></apply>
+        <apply><plus/><ci>flux_k5</ci><ci>flux_k9</ci></apply>
+      </apply>
+    </math>
+  </component>
+
+  <!-- ========================================== -->
+  <!--                CONNECTIONS                 -->
+  <!-- ========================================== -->
+  <connection component_1="environment" component_2="kinetics">
+    <map_variables variable_1="t" variable_2="t"/>
+  </connection>
+</model>

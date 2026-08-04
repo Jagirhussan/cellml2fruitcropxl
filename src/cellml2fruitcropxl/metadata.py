@@ -21,7 +21,7 @@ def extract_model_metadata(cellml_content):
         errors = [analyser.issue(i).description() for i in range(analyser.errorCount())]
         raise ValueError(f"CellML analysis errors: {errors}")
 
-    model_data = analyser.model()
+    model_data = analyser.analyserModel()
 
     state_info = []
     for i in range(model_data.stateCount()):
@@ -35,23 +35,31 @@ def extract_model_metadata(cellml_content):
     type_map = {
         AnalyserVariable.Type.CONSTANT: "Constant",
         AnalyserVariable.Type.COMPUTED_CONSTANT: "ComputedConstant",
-        AnalyserVariable.Type.ALGEBRAIC: "Algebraic",
+        AnalyserVariable.Type.ALGEBRAIC_VARIABLE: "Algebraic",
         AnalyserVariable.Type.VARIABLE_OF_INTEGRATION: "VOI",
-        AnalyserVariable.Type.EXTERNAL: "External",
+        AnalyserVariable.Type.EXTERNAL_VARIABLE: "External",
     }
 
     var_info = []
-    for i in range(model_data.variableCount()):
-        av = model_data.variable(i)
-        var = av.variable()
-        v_type = av.type()
-        type_str = type_map.get(v_type, "Unknown")
-        var_info.append({
-            "name": var.name(),
-            "units": var.units().name() if var.units() else "dimensionless",
-            "type": type_str,
-            "initial_value": var.initialValue(),
-        })
+    category_accessors = (
+        ("constantCount", "constant"),
+        ("computedConstantCount", "computedConstant"),
+        ("algebraicVariableCount", "algebraicVariable"),
+        ("externalVariableCount", "externalVariable"),
+    )
+    for count_name, item_name in category_accessors:
+        count = getattr(model_data, count_name)()
+        item = getattr(model_data, item_name)
+        for i in range(count):
+            av = item(i)
+            var = av.variable()
+            type_str = type_map.get(av.type(), "Unknown")
+            var_info.append({
+                "name": var.name(),
+                "units": var.units().name() if var.units() else "dimensionless",
+                "type": type_str,
+                "initial_value": var.initialValue(),
+            })
 
     return state_info, var_info
 

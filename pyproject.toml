@@ -4,9 +4,9 @@ version = "0.1.0"
 description = "CellML-to-Java tooling service for FruitCropXL: generates readable, debuggable Java ODE models from CellML files"
 readme = "README.md"
 license = {text = "GPL-3.0"}
-requires-python = ">=3.9"
+requires-python = ">=3.10,<3.12"
 dependencies = [
-    "libcellml",
+    "libcellml==0.7.0",
 ]
 
 [project.optional-dependencies]
@@ -17,7 +17,7 @@ cellml2fruitcropxl = "cellml2fruitcropxl.cli:main"
 
 [build-system]
 requires = ["setuptools>=61"]
-build-backend = "setuptools.backends._meta:setuptools_build_meta"
+build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["src"]

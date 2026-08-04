@@ -1,0 +1,136 @@
+Bootstrap: docker
+From: ubuntu:24.04
+
+%labels
+    org.opencontainers.image.title cellml2fruitcropxl
+    org.opencontainers.image.description "Ubuntu 24.04 / Python 3.11 environment for cellml2fruitcropxl"
+    org.opencontainers.image.source "cellml2fruitcropxl"
+    org.opencontainers.image.revision "{{ REPOSITORY_REVISION }}"
+    org.opencontainers.image.base.name "docker.io/library/ubuntu:24.04"
+    org.opencontainers.image.architecture "linux/amd64"
+    org.cellml2fruitcropxl.python.version "3.11.13"
+    org.cellml2fruitcropxl.libcellml.version "0.7.0"
+    org.cellml2fruitcropxl.miniconda.version "py311_26.5.3-2"
+
+%files
+    apptainer/environment.yml /opt/cellml2fruitcropxl/environment.yml
+    pyproject.toml /opt/cellml2fruitcropxl/source/pyproject.toml
+    README.md /opt/cellml2fruitcropxl/source/README.md
+    src /opt/cellml2fruitcropxl/source/src
+
+%post
+    set -eux
+
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update
+    apt-get install -y --no-install-recommends \
+        bash \
+        build-essential \
+        ca-certificates \
+        curl \
+        git \
+        libcommons-math3-java \
+        libgcc-s1 \
+        libgomp1 \
+        liblzma5 \
+        libstdc++6 \
+        libxml2 \
+        openjdk-17-jdk-headless \
+        zlib1g
+
+    MINICONDA_INSTALLER="Miniconda3-py311_26.5.3-2-Linux-x86_64.sh"
+    MINICONDA_SHA256="cdca3dd8440759bb87c60b227e26946263fe2856b30b2bcfdd964c38254fb8eb"
+    curl --fail --location --retry 3 \
+        "https://repo.anaconda.com/miniconda/${MINICONDA_INSTALLER}" \
+        --output "/tmp/${MINICONDA_INSTALLER}"
+    echo "${MINICONDA_SHA256}  /tmp/${MINICONDA_INSTALLER}" | sha256sum --check --strict
+    bash "/tmp/${MINICONDA_INSTALLER}" -b -p /opt/conda
+    rm -f "/tmp/${MINICONDA_INSTALLER}"
+
+    /opt/conda/bin/conda config --system --set auto_activate_base false
+    /opt/conda/bin/conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main
+    /opt/conda/bin/conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
+    /opt/conda/bin/conda env create \
+        --prefix /opt/conda/envs/cellml2fruitcropxl \
+        --file /opt/cellml2fruitcropxl/environment.yml
+
+    ENV_PYTHON=/opt/conda/envs/cellml2fruitcropxl/bin/python
+    "${ENV_PYTHON}" -m pip install \
+        --no-build-isolation \
+        --no-deps \
+        --no-cache-dir \
+        /opt/cellml2fruitcropxl/source
+    "${ENV_PYTHON}" -m ipykernel install \
+        --prefix /opt/conda/envs/cellml2fruitcropxl \
+        --name cellml2fruitcropxl \
+        --display-name "Python 3.11 (cellml2fruitcropxl)"
+
+    test -e /usr/lib/x86_64-linux-gnu/libxml2.so.2
+    test -r /usr/share/java/commons-math3.jar
+
+    {
+        echo "cellml2fruitcropxl Apptainer build manifest"
+        echo "Repository revision: {{ REPOSITORY_REVISION }}"
+        echo "Base image: docker.io/library/ubuntu:24.04"
+        echo "Miniconda installer: ${MINICONDA_INSTALLER}"
+        echo "Miniconda SHA-256: ${MINICONDA_SHA256}"
+        echo
+        cat /etc/os-release
+        echo
+        "${ENV_PYTHON}" --version
+        "${ENV_PYTHON}" -m pip freeze
+        echo
+        java -version 2>&1
+        javac -version 2>&1
+        echo
+        dpkg-query -W \
+            -f='${binary:Package}=${Version}\n' \
+            openjdk-17-jdk-headless libcommons-math3-java libxml2
+    } > /opt/cellml2fruitcropxl-build-info.txt
+
+    /opt/conda/bin/conda clean --all --force-pkgs-dirs --yes
+    apt-get clean
+    rm -rf /var/lib/apt/lists/*
+
+%environment
+    export CELLML2FRUITCROPXL_ENV=/opt/conda/envs/cellml2fruitcropxl
+    export PATH="${CELLML2FRUITCROPXL_ENV}/bin:/opt/conda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+    export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+    export PYTHONNOUSERSITE=1
+    export PYTHONDONTWRITEBYTECODE=1
+    export MPLBACKEND=Agg
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+
+%runscript
+    exec cellml2fruitcropxl "$@"
+
+%test
+    set -eu
+
+    python --version
+    python -c "import libcellml; print(libcellml.__file__)"
+    python -c "from importlib.metadata import version; assert version('libcellml') == '0.7.0'"
+    python -c "import cellml2fruitcropxl; print(cellml2fruitcropxl.__file__)"
+    cellml2fruitcropxl --help
+    jupyter --version
+    python -c "import ipykernel"
+    java -version
+    javac -version
+    test -r /usr/share/java/commons-math3.jar
+    test -e /usr/lib/x86_64-linux-gnu/libxml2.so.2
+
+    extension_dir="$(python -c 'import libcellml, pathlib; print(pathlib.Path(libcellml.__file__).parent)')"
+    for extension in "${extension_dir}"/*.so; do
+        linkage="$(ldd "${extension}")"
+        echo "${linkage}"
+        if echo "${linkage}" | grep -q 'not found'; then
+            echo "Unresolved native dependency in ${extension}" >&2
+            exit 1
+        fi
+    done
+
+%help
+    This image contains a standalone snapshot of cellml2fruitcropxl. For live
+    development, use the repository scripts, which bind the host checkout at
+    /workspace/cellml2fruitcropxl and place its src directory first on PYTHONPATH.

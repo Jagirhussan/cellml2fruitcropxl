@@ -180,9 +180,8 @@ def generate_model(cellml_path, model_name, class_name, package, output_dir):
     analyser = Analyser()
     analyser.analyseModel(model)
     generator = Generator()
-    generator.setProfile(GeneratorProfile(GeneratorProfile.Profile.PYTHON))
-    generator.setModel(analyser.model())
-    raw_python = generator.implementationCode()
+    profile = GeneratorProfile(GeneratorProfile.Profile.PYTHON)
+    raw_python = generator.implementationCode(analyser.analyserModel(), profile)
 
     # Parse Python AST and translate to Java with named fields.
     tree = ast.parse(raw_python)
@@ -337,14 +336,14 @@ def generate_model_interface(package, output_dir):
  * Model.java — Minimal sub-model interface for step-driven simulation.
  *
  * Provided by cellml2fruitcropxl so users don't need a jfruit2 dependency.
- * This mirrors org.inra.psh.jfruit2.model.Model by structure — if you're
- * integrating with an existing jfruit2/Launch system, you can use jfruit2's
- * Model instead (they're structurally compatible).
+ * This resembles org.inra.psh.jfruit2.model.Model by method surface. Java uses
+ * nominal interface typing, so an external jfruit2/FruitCropXL Model still
+ * requires an explicit adapter in the consuming application.
  *
  * The Model interface enables:
  * - Step-driven simulation: compute() advances one step, getOutput() reads results
  * - Multi-model coupling: link(fms) exchanges data between models
- * - Integration with jfruit2's Launch driver (structural compatibility)
+ * - A small delegation surface for an explicit FruitCropXL adapter
  */
 package %s;
 

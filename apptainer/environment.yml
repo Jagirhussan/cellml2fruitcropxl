@@ -1,0 +1,17 @@
+name: cellml2fruitcropxl
+channels:
+  - defaults
+dependencies:
+  - python=3.11.13
+  - pip
+  - pip:
+      - pip==25.1.1
+      - setuptools==80.9.0
+      - wheel==0.45.1
+      - libcellml==0.7.0
+      - numpy==2.2.6
+      - scipy==1.15.3
+      - pandas==2.3.0
+      - matplotlib==3.10.3
+      - jupyterlab==4.4.3
+      - ipykernel==6.29.5

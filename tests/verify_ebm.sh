@@ -1,154 +1,155 @@
 #!/usr/bin/env bash
-# verify_ebm.sh — Full verification of Fruit_Sugar_EBM model.
-#
-# 1. Create climate CSV if missing
-# 2. Run Python Radau reference (if not already done)
-# 3. Regenerate Java from CellML via cellml2fruitcropxl
-# 4. Compile and run Java simulation
-# 5. Compare Java vs Python, plot both
+# Extended EBM comparison. External numerical fixtures are explicit and required.
 set -euo pipefail
 
-ROOT="$(cd "$(dirname "$0")" && pwd)"
-WORKSPACE="$(cd "$ROOT/../.." && pwd)"
-# Point to the python environment that has libcellml installed
-PY="/usr/bin/python"
-JAR="$WORKSPACE/fruitcropmodel-master/ext/ext_linux/jfruit2-1.3.6-jar-with-dependencies.jar"
-GEN="$ROOT/gen"
-OUT="$ROOT/../../../_sugar2_refactor/out"
+SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd -- "${SCRIPT_DIR}/.." && pwd)"
+PY="${PYTHON:-python}"
+JAR="${COMMONS_MATH_JAR:-/usr/share/java/commons-math3.jar}"
+OUTPUT_ROOT="${EBM_OUTPUT_DIR:-${REPO_ROOT}/build/ebm}"
+ATOL="${EBM_ATOL:-1e-6}"
+RTOL="${EBM_RTOL:-1e-3}"
+
+missing=()
+if [[ -z "${EBM_TARGET_CSV:-}" || ! -r "${EBM_TARGET_CSV:-}" ]]; then
+    missing+=("EBM_TARGET_CSV: target growth/sugar CSV")
+fi
+if [[ -z "${EBM_CLIMATE_CSV:-}" || ! -r "${EBM_CLIMATE_CSV:-}" ]]; then
+    missing+=("EBM_CLIMATE_CSV: climate CSV with VPD_Pa and Psi_stem_Pa")
+fi
+if [[ -z "${EBM_PYTHON_REFERENCE_CSV:-}" || ! -r "${EBM_PYTHON_REFERENCE_CSV:-}" ]]; then
+    missing+=("EBM_PYTHON_REFERENCE_CSV: precomputed Python/Radau reference CSV")
+fi
+
+if ((${#missing[@]})); then
+    echo "ERROR: extended EBM validation requires external numerical fixtures." >&2
+    echo "Set each variable to a readable file:" >&2
+    for item in "${missing[@]}"; do
+        echo "  - ${item}" >&2
+    done
+    echo "This test did not run and has not been reported as passed." >&2
+    exit 2
+fi
+if [[ ! -r "${JAR}" ]]; then
+    echo "ERROR: Apache Commons Math JAR is missing: ${JAR}" >&2
+    exit 1
+fi
+
+mkdir -p "${OUTPUT_ROOT}"
+RUN_DIR="$(mktemp -d "${OUTPUT_ROOT}/run.XXXXXX")"
+INPUT_DIR="${RUN_DIR}/input"
+GEN="${RUN_DIR}/generated"
+CLASSES="${RUN_DIR}/classes"
 PKG_PATH="org/fruitcropxl/cellml"
+JAVA_OUTPUT="${RUN_DIR}/ebm_java.csv"
+PLOT_OUTPUT="${RUN_DIR}/ebm_comparison.png"
+mkdir -p "${INPUT_DIR}" "${GEN}" "${CLASSES}"
 
-cd "$WORKSPACE"
+# SugarEbmSupersetSim expects these two fixed basenames within one input directory.
+cp -- "${EBM_TARGET_CSV}" \
+    "${INPUT_DIR}/growth_r1_fw0.50_dm0.50_sugar_sorbitol_r1_2021_day34_mean_out.csv"
+cp -- "${EBM_CLIMATE_CSV}" "${INPUT_DIR}/climate_oracle.csv"
 
-# 1. Create climate CSV if missing
-if [ ! -f climate_oracle.csv ]; then
-    echo ">> Creating climate_oracle.csv..."
-    $PY create_climate_csv.py
-fi
+export PYTHONPATH="${REPO_ROOT}/src${PYTHONPATH:+:${PYTHONPATH}}"
 
-# 2. Run Python Radau reference (if not already done)
-if [ ! -f "$OUT/ebm_python_radau.csv" ]; then
-    echo ">> Running Python Radau reference..."
-    $PY _sugar2_refactor/ebm_radau_reference.py > "$OUT/ebm_python_radau.csv" 2> "$OUT/ebm_python_radau.stderr"
-    cat "$OUT/ebm_python_radau.stderr"
-fi
+echo "== Generate and compile the extended EBM model =="
+"${PY}" -m cellml2fruitcropxl.cli \
+    --cellml "${REPO_ROOT}/cellml/Fruit_Sugar_EBM.cellml" \
+    --package org.fruitcropxl.cellml \
+    --output-dir "${GEN}" \
+    --force
 
-# 3. Regenerate Java from CellML
-echo ">> Generating Java from Fruit_Sugar_EBM.cellml..."
-export PYTHONPATH="$ROOT/../src:${PYTHONPATH:-}"
-$PY -m cellml2fruitcropxl.cli --cellml "$WORKSPACE/Fruit_Sugar_EBM.cellml" \
-    --package org.fruitcropxl.cellml --output-dir "$GEN" 2>&1 | tail -3
+javac \
+    -d "${CLASSES}" \
+    -cp "${JAR}" \
+    "${GEN}/${PKG_PATH}/AbstractCellmlModel.java" \
+    "${GEN}/${PKG_PATH}/SugarEbmSuperset.java" \
+    "${REPO_ROOT}/examples/SugarEbmSupersetSim.java" \
+    "${REPO_ROOT}/examples/EBMExample.java"
 
-# 4. Compile and run Java
-echo ">> Compiling Java..."
-javac -d "$GEN/out" -cp "$JAR" \
-    "$GEN/$PKG_PATH/AbstractCellmlModel.java" \
-    "$GEN/$PKG_PATH/SugarEbmSuperset.java" \
-    "$ROOT/examples/SugarEbmSupersetSim.java" \
-    "$ROOT/examples/EBMExample.java" 2>&1
+echo "== Run Java EBM simulation =="
+java \
+    -cp "${CLASSES}:${JAR}" \
+    org.fruitcropxl.cellml.EBMExample \
+    "${INPUT_DIR}" \
+    > "${JAVA_OUTPUT}"
 
-echo ">> Running Java EBMExample..."
-java -cp "$GEN/out:$JAR" org.fruitcropxl.cellml.EBMExample "$WORKSPACE" \
-    > "$OUT/ebm_java.csv" 2> "$OUT/ebm_java.stderr"
-echo "=== Java stderr (head) ==="
-head -10 "$OUT/ebm_java.stderr"
-echo "=== Java CSV lines ==="
-wc -l "$OUT/ebm_java.csv"
+echo "== Compare against Python/Radau reference =="
+"${PY}" - \
+    "${EBM_PYTHON_REFERENCE_CSV}" \
+    "${JAVA_OUTPUT}" \
+    "${PLOT_OUTPUT}" \
+    "${ATOL}" \
+    "${RTOL}" <<'PYTHON'
+import sys
 
-# 5. Compare and plot
-echo ">> Comparing and plotting..."
-$PY - "$OUT/ebm_python_radau.csv" "$OUT/ebm_java.csv" "$ROOT/ebm_comparison.png" << 'PYTHON_SCRIPT'
-import sys, os
-import numpy as np
 import matplotlib
-matplotlib.use('Agg')
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 
-py_file = sys.argv[1]
-java_file = sys.argv[2]
-plot_file = sys.argv[3]
+reference_path, java_path, plot_path, atol_text, rtol_text = sys.argv[1:]
+atol = float(atol_text)
+rtol = float(rtol_text)
+reference = pd.read_csv(reference_path)
+java = pd.read_csv(java_path)
 
-def load_csv(path):
-    with open(path) as f:
-        lines = f.readlines()
-    header = lines[0].strip().split(',')
-    data = []
-    for line in lines[1:]:
-        parts = line.strip().split(',')
-        if len(parts) < 2: continue
-        try:
-            row = [float(x) for x in parts]
-            data.append(row)
-        except ValueError:
-            continue
-    return header, np.array(data)
+if reference.empty or java.empty:
+    raise SystemExit("ERROR: reference or Java output contains no data rows")
+if len(reference) != len(java):
+    raise SystemExit(
+        f"ERROR: row count differs: reference={len(reference)}, Java={len(java)}"
+    )
 
-py_header, py_data = load_csv(py_file)
-java_header, java_data = load_csv(java_file)
+common = [column for column in reference.columns if column in java.columns]
+if not common:
+    raise SystemExit("ERROR: reference and Java output have no common columns")
 
-print(f"Python: {len(py_data)} rows, Java: {len(java_data)} rows")
-print(f"Python header: {py_header}")
-print(f"Java header: {java_header}")
+failures = []
+for column in common:
+    ref_values = pd.to_numeric(reference[column], errors="coerce").to_numpy(float)
+    java_values = pd.to_numeric(java[column], errors="coerce").to_numpy(float)
+    if not np.isfinite(ref_values).all():
+        failures.append(f"{column}: reference contains NaN or infinity")
+        continue
+    if not np.isfinite(java_values).all():
+        failures.append(f"{column}: Java contains NaN or infinity")
+        continue
+    error = np.abs(java_values - ref_values)
+    limit = atol + rtol * np.abs(ref_values)
+    bad = error > limit
+    if bad.any():
+        failures.append(
+            f"{column}: {bad.sum()} values exceed tolerance; "
+            f"max_abs_error={error.max():.6e}"
+        )
 
-# Find common state columns (by name)
-# Python header: tDays, q_total_vol, q_v_fru, q_c_fru, q_p_glu, q_v_glu, q_c_glu, q_c_sor, q_v_suc, q_c_suc, q_p_vol, q_p_sta
-# Java header should be the same
-n_states = min(len(py_header) - 1, len(java_header) - 1, 11)
+plot_columns = [column for column in common if column.lower() not in {"tdays", "time", "t"}]
+if plot_columns:
+    columns = plot_columns[:6]
+    fig, axes = plt.subplots(2, 3, figsize=(16, 9), squeeze=False)
+    x = np.arange(len(reference))
+    for axis, column in zip(axes.flat, columns):
+        axis.plot(x, reference[column], label="Python/Radau")
+        axis.plot(x, java[column], "--", label="Java")
+        axis.set_title(column)
+        axis.grid(alpha=0.3)
+        axis.legend(fontsize=8)
+    for axis in axes.flat[len(columns):]:
+        axis.set_visible(False)
+    fig.tight_layout()
+    fig.savefig(plot_path, dpi=150)
 
-# Compute totals for comparison
-def compute_totals(data):
-    # state order: [0]=q_total_vol, [1]=q_v_fru, [2]=q_c_fru, [3]=q_p_glu,
-    #   [4]=q_v_glu, [5]=q_c_glu, [6]=q_c_sor, [7]=q_v_suc, [8]=q_c_suc, [9]=q_p_vol, [10]=q_p_sta
-    return {
-        'Total_Suc': data[:, 8] + data[:, 7],   # q_c_suc + q_v_suc
-        'Total_Sor': data[:, 6],                 # q_c_sor
-        'Total_Glu': data[:, 5] + data[:, 4] + data[:, 3],  # q_c_glu + q_v_glu + q_p_glu
-        'Total_Fru': data[:, 2] + data[:, 1],    # q_c_fru + q_v_fru
-        'Total_Sta': data[:, 10],                # q_p_sta
-        'V_total': data[:, 0] * 1e6,             # q_total_vol * 1e6
-    }
+if failures:
+    print(f"Tolerance: atol={atol:g}, rtol={rtol:g}", file=sys.stderr)
+    for failure in failures:
+        print(f"ERROR: {failure}", file=sys.stderr)
+    raise SystemExit(1)
 
-py_totals = compute_totals(py_data)
-java_totals = compute_totals(java_data)
+print(f"Compared {len(common)} columns at atol={atol:g}, rtol={rtol:g}: OK")
+print(f"Plot: {plot_path}")
+PYTHON
 
-# Plot comparison
-fig, axes = plt.subplots(2, 3, figsize=(18, 10))
-fig.suptitle('Fruit_Sugar_EBM: Python Radau vs Java DormandPrince54', fontsize=14)
-
-py_t = py_data[:, 0]
-java_t = java_data[:, 0]
-
-for ax, (name, py_vals) in zip(axes.flatten(), py_totals.items()):
-    java_vals = java_totals.get(name, np.full(len(java_t), np.nan))
-    ax.plot(py_t, py_vals, 'r-', lw=1.5, label='Python Radau')
-    ax.plot(java_t, java_vals, 'b--', lw=1.5, label='Java DP54')
-    ax.set_title(name)
-    ax.legend(fontsize=8)
-    ax.grid(True, alpha=0.3)
-    
-    # Check for NaN/divergence in Java
-    nan_count = np.sum(np.isnan(java_vals))
-    if nan_count > 0:
-        ax.set_title(f'{name} (Java: {nan_count} NaN!)', color='red')
-
-plt.tight_layout()
-plt.savefig(plot_file, dpi=150)
-print(f"Plot saved to {plot_file}")
-
-# Print max errors (excluding NaN)
-print("\n--- Max Absolute Errors (excluding NaN) ---")
-for name in py_totals:
-    py_vals = py_totals[name]
-    java_vals = java_totals.get(name, np.full(len(java_t), np.nan))
-    mask = ~np.isnan(java_vals) & ~np.isnan(py_vals)
-    if np.sum(mask) > 0:
-        max_err = np.max(np.abs(py_vals[mask] - java_vals[mask]))
-        print(f"  {name:12}: max_err = {max_err:.6e} ({np.sum(mask)} valid points)")
-    else:
-        print(f"  {name:12}: ALL NaN (Java diverged)")
-PYTHON_SCRIPT
-
-echo ""
-echo "=== DONE ==="
-echo "Comparison plot: $ROOT/ebm_comparison.png"
-echo "Python reference: $OUT/ebm_python_radau.csv"
-echo "Java output: $OUT/ebm_java.csv"
+echo "Extended EBM validation passed."
+echo "Outputs: ${RUN_DIR}"

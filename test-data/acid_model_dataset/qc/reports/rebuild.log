@@ -1,0 +1,11 @@
+Inventoried 435 historical files (289 checksum-duplicate members).
+Wrote /home/jzhu/Workspace/Github/0-functional-structural-fruit-crop-model/paper_writing/2018_1_acid model/acid_model_dataset/qc/reports/historical_inventory.csv
+kliewer_clean.csv: 40 rows -> /home/jzhu/Workspace/Github/0-functional-structural-fruit-crop-model/paper_writing/2018_1_acid model/acid_model_dataset/intermediate/converted/kliewer_clean.csv
+soyer_clean.csv: 117 rows -> /home/jzhu/Workspace/Github/0-functional-structural-fruit-crop-model/paper_writing/2018_1_acid model/acid_model_dataset/intermediate/converted/soyer_clean.csv
+bobeica_clean.csv: 76 rows -> /home/jzhu/Workspace/Github/0-functional-structural-fruit-crop-model/paper_writing/2018_1_acid model/acid_model_dataset/intermediate/converted/bobeica_clean.csv
+etchebarne_clean.csv: 184 rows -> /home/jzhu/Workspace/Github/0-functional-structural-fruit-crop-model/paper_writing/2018_1_acid model/acid_model_dataset/intermediate/converted/etchebarne_clean.csv
+bobeica_climate_clean.csv: 73 rows -> /home/jzhu/Workspace/Github/0-functional-structural-fruit-crop-model/paper_writing/2018_1_acid model/acid_model_dataset/intermediate/converted/bobeica_climate_clean.csv
+etchebarne_climate_clean.csv: 730 rows -> /home/jzhu/Workspace/Github/0-functional-structural-fruit-crop-model/paper_writing/2018_1_acid model/acid_model_dataset/intermediate/converted/etchebarne_climate_clean.csv
+Standardized 7148 non-missing observations -> /home/jzhu/Workspace/Github/0-functional-structural-fruit-crop-model/paper_writing/2018_1_acid model/acid_model_dataset/intermediate/converted/observations_standardized.csv
+Curated 7148 observations, 417 sampling units, 4336 climate records, and 45 source files.
+QC passed: 10 checks; 24 figures written.

@@ -1,0 +1,66 @@
+"study_id","cultivar","variable","n_observations"
+"soyer_molot_1993","Cabernet Sauvignon","air_temperature",117
+"kliewer_lider_1970","Cardinal","air_temperature",20
+"etchebarne_2010_grenache","Grenache","air_temperature",184
+"kliewer_lider_1970","Pinot Noir","air_temperature",20
+"bobeica_2015_sangiovese","Sangiovese","air_temperature",76
+"bobeica_2015_sangiovese","Sangiovese","anthocyanin",76
+"bobeica_2015_sangiovese","Sangiovese","berry_carbon",48
+"etchebarne_2010_grenache","Grenache","berry_dry_mass",184
+"etchebarne_2010_grenache","Grenache","berry_dry_matter_fraction",184
+"soyer_molot_1993","Cabernet Sauvignon","berry_fresh_mass",117
+"kliewer_lider_1970","Cardinal","berry_fresh_mass",20
+"etchebarne_2010_grenache","Grenache","berry_fresh_mass",184
+"kliewer_lider_1970","Pinot Noir","berry_fresh_mass",20
+"bobeica_2015_sangiovese","Sangiovese","berry_fresh_mass",76
+"etchebarne_2010_grenache","Grenache","berry_mass_per_cluster",184
+"etchebarne_2010_grenache","Grenache","berry_number_per_cluster",184
+"bobeica_2015_sangiovese","Sangiovese","berry_number_per_vine",48
+"soyer_molot_1993","Cabernet Sauvignon","berry_pH",117
+"kliewer_lider_1970","Cardinal","berry_pH",20
+"etchebarne_2010_grenache","Grenache","berry_pH",184
+"kliewer_lider_1970","Pinot Noir","berry_pH",20
+"bobeica_2015_sangiovese","Sangiovese","berry_pH",76
+"etchebarne_2010_grenache","Grenache","berry_volume",184
+"etchebarne_2010_grenache","Grenache","berry_water_fraction",184
+"etchebarne_2010_grenache","Grenache","berry_water_volume",184
+"soyer_molot_1993","Cabernet Sauvignon","brix",117
+"kliewer_lider_1970","Cardinal","brix",20
+"etchebarne_2010_grenache","Grenache","brix",104
+"kliewer_lider_1970","Pinot Noir","brix",20
+"bobeica_2015_sangiovese","Sangiovese","brix",76
+"soyer_molot_1993","Cabernet Sauvignon","calcium_concentration",117
+"etchebarne_2010_grenache","Grenache","calcium_concentration",180
+"etchebarne_2010_grenache","Grenache","cluster_fresh_mass",184
+"etchebarne_2010_grenache","Grenache","cluster_length",184
+"etchebarne_2010_grenache","Grenache","hexose",184
+"bobeica_2015_sangiovese","Sangiovese","hexose",76
+"etchebarne_2010_grenache","Grenache","hexose_per_berry",184
+"bobeica_2015_sangiovese","Sangiovese","hexose_per_berry",48
+"bobeica_2015_sangiovese","Sangiovese","hexose_per_vine",48
+"soyer_molot_1993","Cabernet Sauvignon","magnesium_concentration",117
+"etchebarne_2010_grenache","Grenache","magnesium_concentration",180
+"soyer_molot_1993","Cabernet Sauvignon","malate_concentration",117
+"kliewer_lider_1970","Cardinal","malate_concentration",20
+"etchebarne_2010_grenache","Grenache","malate_concentration",168
+"kliewer_lider_1970","Pinot Noir","malate_concentration",20
+"bobeica_2015_sangiovese","Sangiovese","malate_concentration",76
+"soyer_molot_1993","Cabernet Sauvignon","potassium_concentration",117
+"etchebarne_2010_grenache","Grenache","potassium_concentration",180
+"bobeica_2015_sangiovese","Sangiovese","potassium_concentration",72
+"etchebarne_2010_grenache","Grenache","rachis_fresh_mass",184
+"etchebarne_2010_grenache","Grenache","sodium_concentration",180
+"soyer_molot_1993","Cabernet Sauvignon","tartrate_concentration",117
+"kliewer_lider_1970","Cardinal","tartrate_concentration",20
+"etchebarne_2010_grenache","Grenache","tartrate_concentration",168
+"kliewer_lider_1970","Pinot Noir","tartrate_concentration",20
+"bobeica_2015_sangiovese","Sangiovese","tartrate_concentration",76
+"soyer_molot_1993","Cabernet Sauvignon","titratable_acidity",117
+"etchebarne_2010_grenache","Grenache","titratable_acidity",184
+"etchebarne_2010_grenache","Grenache","titratable_acidity_per_berry",177
+"kliewer_lider_1970","Cardinal","total_acidity",20
+"kliewer_lider_1970","Pinot Noir","total_acidity",20
+"bobeica_2015_sangiovese","Sangiovese","total_acidity",76
+"soyer_molot_1993","Cabernet Sauvignon","total_soluble_sugar",117
+"etchebarne_2010_grenache","Grenache","total_soluble_sugar",176
+"etchebarne_2010_grenache","Grenache","total_soluble_sugar_per_berry",176

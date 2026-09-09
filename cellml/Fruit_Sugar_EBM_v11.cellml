@@ -1,0 +1,794 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model xmlns="http://www.cellml.org/cellml/1.1#" xmlns:cellml="http://www.cellml.org/cellml/1.1#" name="sugar_ebm_superset">
+
+  <units name="day">
+    <unit units="second" multiplier="86400.0"/>
+  </units>
+  <units name="per_day">
+    <unit units="day" exponent="-1"/>
+  </units>
+  <units name="g_C">
+    <unit units="gram"/>
+  </units>
+  <units name="g_C_per_mol">
+    <unit units="gram"/>
+    <unit units="mole" exponent="-1"/>
+  </units>
+  <units name="mol_per_kg">
+    <unit units="mole"/>
+    <unit units="kilogram" exponent="-1"/>
+  </units>
+  <units name="J_per_mol">
+    <unit units="joule"/>
+    <unit units="mole" exponent="-1"/>
+  </units>
+  <units name="m3">
+    <unit units="metre" exponent="3"/>
+  </units>
+  <units name="kg_per_m3">
+    <unit units="kilogram"/>
+    <unit units="metre" exponent="-3"/>
+  </units>
+  <units name="m3_per_day">
+    <unit units="metre" exponent="3"/>
+    <unit units="day" exponent="-1"/>
+  </units>
+  <units name="m3_per_Pa_day">
+    <unit units="metre" exponent="3"/>
+    <unit units="pascal" exponent="-1"/>
+    <unit units="day" exponent="-1"/>
+  </units>
+  <units name="Pa">
+    <unit units="pascal"/>
+  </units>
+  <units name="mol_per_kg_day">
+    <unit units="mole"/>
+    <unit units="kilogram" exponent="-1"/>
+    <unit units="day" exponent="-1"/>
+  </units>
+  <units name="kg_per_mol">
+    <unit units="kilogram"/>
+    <unit units="mole" exponent="-1"/>
+  </units>
+  <units name="g_C_per_day">
+    <unit units="gram"/>
+    <unit units="day" exponent="-1"/>
+  </units>
+  <units name="g_C_per_day2">
+    <unit units="gram"/>
+    <unit units="day" exponent="-2"/>
+  </units>
+
+  <component name="environment">
+    <variable name="t" units="day" public_interface="out"/>
+  </component>
+
+  <component name="parameters">
+    <!-- Physical constants and unoptimized parameters (kept from original) -->
+    <variable name="M_SUC_C" units="g_C_per_mol" initial_value="144.0" public_interface="out"/>
+    <variable name="M_HEX_C" units="g_C_per_mol" initial_value="72.0" public_interface="out"/>
+    <variable name="PHI_N" units="J_per_mol" initial_value="2436.0" public_interface="out"/>
+    <variable name="rho_water" units="kg_per_m3" initial_value="1000.0" public_interface="out"/>
+    
+    <variable name="ALPHA_V" units="dimensionless" initial_value="0.85" public_interface="out"/>
+    <variable name="ALPHA_C" units="dimensionless" initial_value="0.10" public_interface="out"/>
+    <variable name="ALPHA_P" units="dimensionless" initial_value="0.05" public_interface="out"/>
+
+    <variable name="delta_lockhart" units="Pa" initial_value="5000.0" public_interface="out"/>
+    <variable name="EFF_H_V" units="dimensionless" initial_value="1.0" public_interface="out"/>
+    <variable name="EFF_H_C" units="dimensionless" initial_value="0.6309573" public_interface="out"/>
+    <variable name="PHYSIO_ATP_RATIO" units="dimensionless" initial_value="10.0" public_interface="out"/>
+    <variable name="PHYSIO_ADP_RATIO" units="dimensionless" initial_value="1.0" public_interface="out"/>
+
+    <!-- Thermohydraulic & Structural Parameters (Table 1) -->
+    <variable name="Y" units="Pa" initial_value="99770.0" public_interface="out"/> 
+    <variable name="epsilon" units="Pa" initial_value="9.79e6" public_interface="out"/>
+    <variable name="phi_W" units="m3_per_Pa_day" initial_value="1.07e-11" public_interface="out"/> 
+    <variable name="L_x" units="m3_per_Pa_day" initial_value="9.93e-11" public_interface="out"/>
+    <variable name="L_p" units="m3_per_Pa_day" initial_value="6.69e-12" public_interface="out"/>
+    <variable name="g_skin" units="m3_per_Pa_day" initial_value="2.57e-13" public_interface="out"/>
+    <variable name="Pi_phloem_sap" units="Pa" initial_value="1.02e6" public_interface="out"/>
+    <variable name="lambda_apo" units="dimensionless" initial_value="0.9998" public_interface="out"/>
+    <variable name="C_bg" units="mol_per_kg" initial_value="0.100" public_interface="out"/>
+
+    <!-- Thermodynamic Equilibrium and Affinity Constants (Table 2) -->
+    <variable name="K_Suc_c" units="kg_per_mol" initial_value="0.442" public_interface="out"/>
+    <variable name="K_Suc_v" units="kg_per_mol" initial_value="2355.0" public_interface="out"/>
+    <variable name="K_Sor_c" units="kg_per_mol" initial_value="1.58" public_interface="out"/>
+    <variable name="K_Glu_c" units="kg_per_mol" initial_value="72.3" public_interface="out"/>
+    <variable name="K_Glu_v" units="kg_per_mol" initial_value="9862.0" public_interface="out"/>
+    <variable name="K_Fru_c" units="kg_per_mol" initial_value="2023.0" public_interface="out"/>
+    <variable name="K_Fru_v" units="kg_per_mol" initial_value="1.16" public_interface="out"/>
+    <variable name="K_Glu_p" units="kg_per_mol" initial_value="54.2" public_interface="out"/>
+    <variable name="K_Sta_p" units="dimensionless" initial_value="0.102" public_interface="out"/>
+    <variable name="D_redox" units="dimensionless" initial_value="475.3" public_interface="out"/>
+
+    <!-- Metabolic Kinetic Rates and Transporters (Table 3) -->
+    <variable name="k_INV" units="mol_per_kg_day" initial_value="4.18e-3" public_interface="out"/>
+    <variable name="k_SDH1" units="mol_per_kg_day" initial_value="4.12e-5" public_interface="out"/>
+    <variable name="k_SDH2" units="mol_per_kg_day" initial_value="4.07e-5" public_interface="out"/>
+    <variable name="k_ISO" units="mol_per_kg_day" initial_value="1.09e-3" public_interface="out"/>
+    <variable name="k_TSuc" units="mol_per_kg_day" initial_value="2.51e-4" public_interface="out"/>
+    <variable name="k_TGlu" units="mol_per_kg_day" initial_value="0.263" public_interface="out"/>
+    <variable name="k_TFru" units="mol_per_kg_day" initial_value="0.997" public_interface="out"/>
+    <variable name="k_TPGlu" units="mol_per_kg_day" initial_value="0.066" public_interface="out"/>
+    <variable name="k_STA" units="mol_per_kg_day" initial_value="9.80e-3" public_interface="out"/>
+    <variable name="k_Resp" units="mol_per_kg_day" initial_value="3.91e-8" public_interface="out"/>
+    <variable name="k_Syn" units="mol_per_kg_day" initial_value="4.81e-8" public_interface="out"/>
+    <variable name="k_INV_v" units="mol_per_kg_day" initial_value="1.05e-6" public_interface="out"/>
+    <variable name="k_AMY_max" units="mol_per_kg_day" initial_value="5.52" public_interface="out"/>
+    <variable name="r_AMY" units="per_day" initial_value="0.0227" public_interface="out"/>
+  </component>
+
+  <component name="boundary_conditions">
+    <variable name="t" units="day" public_interface="in"/>
+    
+    <variable name="u_stem_water" units="Pa" initial_value="-500000.0" public_interface="out"/>
+    <variable name="u_atm_water" units="Pa" initial_value="1500.0" public_interface="out"/>
+
+    <variable name="u_sor_base" units="g_C_per_day" initial_value="0.0"/>
+    <variable name="x_phloem_suc_base" units="mol_per_kg" initial_value="0.0"/>
+    <variable name="x_phloem_sor_base" units="mol_per_kg" initial_value="0.0"/>
+    <variable name="t_rip_base" units="day" initial_value="118.0"/>
+    
+    <variable name="u_unload_sor" units="g_C_per_day" public_interface="out"/>
+    <variable name="x_phloem_suc" units="mol_per_kg" public_interface="out"/>
+    <variable name="x_phloem_sor" units="mol_per_kg" public_interface="out"/>
+    <variable name="t_rip" units="day" public_interface="out"/>
+
+    <variable name="zero_g_day2" units="g_C_per_day2" initial_value="0.0"/>
+    <variable name="zero_mol_kg_day" units="mol_per_kg_day" initial_value="0.0"/>
+    <variable name="zero_dim" units="dimensionless" initial_value="0.0"/>
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply><eq/><ci>u_unload_sor</ci>
+        <apply><plus/><ci>u_sor_base</ci><apply><times/><ci>t</ci><ci>zero_g_day2</ci></apply></apply>
+      </apply>
+
+      <apply><eq/><ci>x_phloem_suc</ci>
+        <apply><plus/><ci>x_phloem_suc_base</ci><apply><times/><ci>t</ci><ci>zero_mol_kg_day</ci></apply></apply>
+      </apply>
+
+      <apply><eq/><ci>x_phloem_sor</ci>
+        <apply><plus/><ci>x_phloem_sor_base</ci><apply><times/><ci>t</ci><ci>zero_mol_kg_day</ci></apply></apply>
+      </apply>
+
+      <apply><eq/><ci>t_rip</ci>
+        <apply><plus/><ci>t_rip_base</ci><apply><times/><ci>t</ci><ci>zero_dim</ci></apply></apply>
+      </apply>
+    </math>
+  </component>
+
+   <component name="thermohydraulics">
+    <variable name="t" units="day" public_interface="in"/>
+    
+    <variable name="q_total_vol" units="m3" initial_value="0.00001" public_interface="out"/>
+    <variable name="q_p_vol" units="m3" initial_value="0.0000095"/>
+    <variable name="q_e_vol" units="m3"/>
+    
+    <variable name="u_stem_water" units="Pa" public_interface="in"/>
+    <variable name="u_atm_water" units="Pa" public_interface="in"/>
+
+    <variable name="M_SUC_C" units="g_C_per_mol" public_interface="in"/>
+    <variable name="M_HEX_C" units="g_C_per_mol" public_interface="in"/>
+    <variable name="PHI_N" units="J_per_mol" public_interface="in"/>
+    <variable name="rho_water" units="kg_per_m3" public_interface="in"/>
+    <variable name="C_bg" units="mol_per_kg" public_interface="in"/>
+    <variable name="Y" units="Pa" public_interface="in"/>
+    <variable name="phi_W" units="m3_per_Pa_day" public_interface="in"/>
+    <variable name="delta_lockhart" units="Pa" public_interface="in"/>
+    <variable name="L_x" units="m3_per_Pa_day" public_interface="in"/>
+    <variable name="L_p" units="m3_per_Pa_day" public_interface="in"/>
+    <variable name="g_skin" units="m3_per_Pa_day" public_interface="in"/>
+    <variable name="epsilon" units="Pa" public_interface="in"/>
+    <variable name="Pi_phloem_sap" units="Pa" public_interface="in"/>
+    <variable name="x_phloem_suc" units="mol_per_kg" public_interface="in"/>
+
+    <variable name="q_c_suc" units="g_C" public_interface="in"/>
+    <variable name="q_v_suc" units="g_C" public_interface="in"/>
+    <variable name="q_c_sor" units="g_C" public_interface="in"/>
+    <variable name="q_c_glu" units="g_C" public_interface="in"/>
+    <variable name="q_v_glu" units="g_C" public_interface="in"/>
+    <variable name="q_p_glu" units="g_C" public_interface="in"/>
+    <variable name="q_c_fru" units="g_C" public_interface="in"/>
+    <variable name="q_v_fru" units="g_C" public_interface="in"/>
+
+    <variable name="W_kg" units="kilogram" public_interface="out"/>
+    <variable name="total_moles" units="mole"/>
+    <variable name="bulk_osmolarity" units="mol_per_kg"/>
+    <variable name="u_fruit_osmotic" units="Pa"/>
+    <variable name="u_fruit_turgor" units="Pa"/>
+    <variable name="delta_P" units="Pa"/>
+    <variable name="yield_val" units="Pa"/>
+    
+    <variable name="v_t_water" units="m3_per_day"/>
+    <variable name="v_x_water" units="m3_per_day"/>
+    <variable name="v_p_water" units="m3_per_day"/>
+    <variable name="v_growth_water" units="m3_per_day"/>
+    <variable name="v_in_suc" units="g_C_per_day" public_interface="out"/>
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      
+      <apply><eq/><ci>W_kg</ci>
+        <piecewise>
+          <piece>
+            <apply><times/><ci>q_total_vol</ci><ci>rho_water</ci></apply>
+            <apply><gt/>
+              <apply><times/><ci>q_total_vol</ci><ci>rho_water</ci></apply>
+              <cn cellml:units="kilogram">0.000000001</cn>
+            </apply>
+          </piece>
+          <otherwise>
+            <cn cellml:units="kilogram">0.000000001</cn>
+          </otherwise>
+        </piecewise>
+      </apply>
+
+      <apply><eq/><ci>total_moles</ci>
+        <apply><plus/>
+          <apply><divide/>
+            <apply><plus/><ci>q_c_suc</ci><ci>q_v_suc</ci></apply>
+            <ci>M_SUC_C</ci>
+          </apply>
+          <apply><divide/><ci>q_c_sor</ci><ci>M_HEX_C</ci></apply>
+          <apply><divide/>
+            <apply><plus/><ci>q_c_glu</ci><ci>q_v_glu</ci><ci>q_p_glu</ci></apply>
+            <ci>M_HEX_C</ci>
+          </apply>
+          <apply><divide/>
+            <apply><plus/><ci>q_c_fru</ci><ci>q_v_fru</ci></apply>
+            <ci>M_HEX_C</ci>
+          </apply>
+        </apply>
+      </apply>
+
+      <apply><eq/><ci>bulk_osmolarity</ci>
+        <apply><plus/>
+          <apply><divide/><ci>total_moles</ci><ci>W_kg</ci></apply>
+          <ci>C_bg</ci>
+        </apply>
+      </apply>
+
+      <apply><eq/><ci>u_fruit_osmotic</ci>
+        <apply><times/>
+          <apply><times/><ci>bulk_osmolarity</ci><ci>rho_water</ci></apply>
+          <ci>PHI_N</ci>
+        </apply>
+      </apply>
+
+      <apply><eq/><ci>q_e_vol</ci>
+        <apply><minus/><ci>q_total_vol</ci><ci>q_p_vol</ci></apply>
+      </apply>
+
+      <apply><eq/><ci>u_fruit_turgor</ci>
+        <apply><times/>
+          <ci>epsilon</ci>
+          <apply><divide/><ci>q_e_vol</ci><ci>q_total_vol</ci></apply>
+        </apply>
+      </apply>
+
+      <apply><eq/><ci>v_t_water</ci>
+        <apply><times/><ci>g_skin</ci><ci>u_atm_water</ci></apply>
+      </apply>
+
+      <apply><eq/><ci>v_x_water</ci>
+        <apply><times/><ci>L_x</ci>
+          <apply><plus/>
+            <apply><minus/><ci>u_stem_water</ci><ci>u_fruit_turgor</ci></apply>
+            <ci>u_fruit_osmotic</ci>
+          </apply>
+        </apply>
+      </apply>
+
+      <apply><eq/><ci>v_p_water</ci>
+        <apply><times/><ci>L_p</ci>
+          <apply><plus/>
+            <apply><minus/>
+              <apply><plus/><ci>u_stem_water</ci><ci>Pi_phloem_sap</ci></apply>
+              <ci>u_fruit_turgor</ci>
+            </apply>
+            <ci>u_fruit_osmotic</ci>
+          </apply>
+        </apply>
+      </apply>
+
+      <apply><eq/><ci>delta_P</ci>
+        <apply><minus/><ci>u_fruit_turgor</ci><ci>Y</ci></apply>
+      </apply>
+
+      <apply><eq/><ci>yield_val</ci>
+        <piecewise>
+          <piece>
+            <ci>delta_P</ci>
+            <apply><gt/>
+              <ci>delta_P</ci>
+              <apply><times/><cn cellml:units="dimensionless">50.0</cn><ci>delta_lockhart</ci></apply>
+            </apply>
+          </piece>
+          <piece>
+            <cn cellml:units="Pa">0.0</cn>
+            <apply><lt/>
+              <ci>delta_P</ci>
+              <apply><times/><cn cellml:units="dimensionless">-50.0</cn><ci>delta_lockhart</ci></apply>
+            </apply>
+          </piece>
+          <otherwise>
+            <apply><times/>
+              <ci>delta_lockhart</ci>
+              <apply><ln/>
+                <apply><plus/>
+                  <cn cellml:units="dimensionless">1.0</cn>
+                  <apply><exp/>
+                    <apply><divide/><ci>delta_P</ci><ci>delta_lockhart</ci></apply>
+                  </apply>
+                </apply>
+              </apply>
+            </apply>
+          </otherwise>
+        </piecewise>
+      </apply>
+
+      <apply><eq/><ci>v_growth_water</ci>
+        <apply><times/><ci>phi_W</ci><ci>yield_val</ci></apply>
+      </apply>
+      
+      <apply><eq/>
+        <apply><diff/><bvar><ci>t</ci></bvar><ci>q_total_vol</ci></apply>
+        <apply><minus/>
+          <apply><plus/><ci>v_x_water</ci><ci>v_p_water</ci></apply>
+          <ci>v_t_water</ci>
+        </apply>
+      </apply>
+
+      <apply><eq/>
+        <apply><diff/><bvar><ci>t</ci></bvar><ci>q_p_vol</ci></apply>
+        <ci>v_growth_water</ci>
+      </apply>
+
+      <apply><eq/><ci>v_in_suc</ci>
+        <apply><times/>
+          <piecewise>
+            <piece>
+              <ci>v_p_water</ci>
+              <apply><gt/><ci>v_p_water</ci><cn cellml:units="m3_per_day">0.0</cn></apply>
+            </piece>
+            <otherwise>
+              <cn cellml:units="m3_per_day">0.0</cn>
+            </otherwise>
+          </piecewise>
+          <apply><times/><ci>x_phloem_suc</ci><ci>rho_water</ci></apply>
+          <ci>M_SUC_C</ci>
+        </apply>
+      </apply>
+
+    </math>
+  </component>
+
+
+  <component name="cytosol">
+    <variable name="t" units="day" public_interface="in"/>
+    <variable name="W_kg" units="kilogram" public_interface="in"/>
+    
+    <variable name="q_c_suc" units="g_C" initial_value="0.005" public_interface="out"/>
+    <variable name="q_c_sor" units="g_C" initial_value="0.010" public_interface="out"/>
+    <variable name="q_c_glu" units="g_C" initial_value="0.002" public_interface="out"/>
+    <variable name="q_c_fru" units="g_C" initial_value="0.002" public_interface="out"/>
+
+    <variable name="ALPHA_C" units="dimensionless" public_interface="in"/>
+    <variable name="M_SUC_C" units="g_C_per_mol" public_interface="in"/>
+    <variable name="M_HEX_C" units="g_C_per_mol" public_interface="in"/>
+    <variable name="D_redox" units="dimensionless" public_interface="in"/>
+    <variable name="lambda_apo" units="dimensionless" public_interface="in"/>
+    <variable name="u_in_suc" units="g_C_per_day" public_interface="in"/>
+    <variable name="u_unload_sor" units="g_C_per_day" public_interface="in"/>
+    <variable name="x_phloem_suc" units="mol_per_kg" public_interface="in"/>
+    <variable name="x_phloem_sor" units="mol_per_kg" public_interface="in"/>
+
+    <variable name="K_Suc_c" units="kg_per_mol" public_interface="in"/>
+    <variable name="K_Sor_c" units="kg_per_mol" public_interface="in"/>
+    <variable name="K_Glu_c" units="kg_per_mol" public_interface="in"/>
+    <variable name="K_Fru_c" units="kg_per_mol" public_interface="in"/>
+    <variable name="k_INV" units="mol_per_kg_day" public_interface="in"/>
+    <variable name="k_SDH1" units="mol_per_kg_day" public_interface="in"/>
+    <variable name="k_SDH2" units="mol_per_kg_day" public_interface="in"/>
+    <variable name="k_ISO" units="mol_per_kg_day" public_interface="in"/>
+    <variable name="k_Resp" units="mol_per_kg_day" public_interface="in"/>
+    <variable name="k_Syn" units="mol_per_kg_day" public_interface="in"/>
+
+    <variable name="v_T_suc" units="g_C_per_day" public_interface="in"/>
+    <variable name="v_T_glu" units="g_C_per_day" public_interface="in"/>
+    <variable name="v_T_fru" units="g_C_per_day" public_interface="in"/>
+    <variable name="v_T_p_glu" units="g_C_per_day" public_interface="in"/>
+
+    <variable name="u_c_suc" units="mol_per_kg" public_interface="out"/>
+    <variable name="u_c_sor" units="mol_per_kg" public_interface="out"/>
+    <variable name="u_c_glu" units="mol_per_kg" public_interface="out"/>
+    <variable name="u_c_fru" units="mol_per_kg" public_interface="out"/>
+    <variable name="sap_suc_safe" units="mol_per_kg"/>
+    <variable name="sap_sor_safe" units="mol_per_kg"/>
+    <variable name="ratio_sym" units="dimensionless"/>
+    <variable name="ratio_apo" units="dimensionless"/>
+    <variable name="ratio_sor" units="dimensionless"/>
+    <variable name="theta_sym" units="dimensionless"/>
+    <variable name="theta_apo" units="dimensionless"/>
+    <variable name="theta_sor" units="dimensionless"/>
+    
+    <variable name="v_sym_suc" units="g_C_per_day"/>
+    <variable name="v_apo_hex" units="g_C_per_day"/>
+    <variable name="v_unload_sor" units="g_C_per_day"/>
+    <variable name="f_inv_suc" units="mol_per_kg_day"/>
+    <variable name="f_sdh_sor" units="mol_per_kg_day"/>
+    <variable name="f_sdh2_sor" units="mol_per_kg_day"/>
+    <variable name="f_iso_hex" units="mol_per_kg_day"/>
+    <variable name="f_resp_hex" units="mol_per_kg_day"/>
+    <variable name="f_syn_hex" units="mol_per_kg_day"/>
+    
+    <variable name="v_inv_suc" units="g_C_per_day"/>
+    <variable name="v_sdh_sor" units="g_C_per_day"/>
+    <variable name="v_sdh2_sor" units="g_C_per_day"/>
+    <variable name="v_iso_hex" units="g_C_per_day"/>
+    <variable name="v_resp_hex" units="g_C_per_day"/>
+    <variable name="v_syn_hex" units="g_C_per_day"/>
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      
+      <apply><eq/><ci>u_c_suc</ci>
+        <apply><divide/><ci>q_c_suc</ci><apply><times/><ci>M_SUC_C</ci><ci>W_kg</ci><ci>ALPHA_C</ci></apply></apply>
+      </apply>
+      <apply><eq/><ci>u_c_sor</ci>
+        <apply><divide/><ci>q_c_sor</ci><apply><times/><ci>M_HEX_C</ci><ci>W_kg</ci><ci>ALPHA_C</ci></apply></apply>
+      </apply>
+      <apply><eq/><ci>u_c_glu</ci>
+        <apply><divide/><ci>q_c_glu</ci><apply><times/><ci>M_HEX_C</ci><ci>W_kg</ci><ci>ALPHA_C</ci></apply></apply>
+      </apply>
+      <apply><eq/><ci>u_c_fru</ci>
+        <apply><divide/><ci>q_c_fru</ci><apply><times/><ci>M_HEX_C</ci><ci>W_kg</ci><ci>ALPHA_C</ci></apply></apply>
+      </apply>
+
+      <apply><eq/><ci>sap_suc_safe</ci>
+        <piecewise><piece><ci>x_phloem_suc</ci><apply><gt/><ci>x_phloem_suc</ci><cn cellml:units="mol_per_kg">0.000001</cn></apply></piece><otherwise><cn cellml:units="mol_per_kg">0.000001</cn></otherwise></piecewise>
+      </apply>
+      <apply><eq/><ci>sap_sor_safe</ci>
+        <piecewise><piece><ci>x_phloem_sor</ci><apply><gt/><ci>x_phloem_sor</ci><cn cellml:units="mol_per_kg">0.000001</cn></apply></piece><otherwise><cn cellml:units="mol_per_kg">0.000001</cn></otherwise></piecewise>
+      </apply>
+
+      <apply><eq/><ci>ratio_sym</ci><apply><divide/><apply><minus/><ci>sap_suc_safe</ci><ci>u_c_suc</ci></apply><ci>sap_suc_safe</ci></apply></apply>
+      <apply><eq/><ci>ratio_apo</ci><apply><divide/><apply><minus/><ci>sap_suc_safe</ci><apply><divide/><apply><plus/><ci>u_c_glu</ci><ci>u_c_fru</ci></apply><cn cellml:units="dimensionless">2.0</cn></apply></apply><ci>sap_suc_safe</ci></apply></apply>
+      <apply><eq/><ci>ratio_sor</ci><apply><divide/><apply><minus/><ci>sap_sor_safe</ci><ci>u_c_sor</ci></apply><ci>sap_sor_safe</ci></apply></apply>
+
+      <apply><eq/><ci>theta_sym</ci><piecewise><piece><cn cellml:units="dimensionless">0.0</cn><apply><lt/><ci>ratio_sym</ci><cn cellml:units="dimensionless">0.0</cn></apply></piece><piece><cn cellml:units="dimensionless">1.0</cn><apply><gt/><ci>ratio_sym</ci><cn cellml:units="dimensionless">1.0</cn></apply></piece><otherwise><ci>ratio_sym</ci></otherwise></piecewise></apply>
+      <apply><eq/><ci>theta_apo</ci><piecewise><piece><cn cellml:units="dimensionless">0.0</cn><apply><lt/><ci>ratio_apo</ci><cn cellml:units="dimensionless">0.0</cn></apply></piece><piece><cn cellml:units="dimensionless">1.0</cn><apply><gt/><ci>ratio_apo</ci><cn cellml:units="dimensionless">1.0</cn></apply></piece><otherwise><ci>ratio_apo</ci></otherwise></piecewise></apply>
+      <apply><eq/><ci>theta_sor</ci><piecewise><piece><cn cellml:units="dimensionless">0.0</cn><apply><lt/><ci>ratio_sor</ci><cn cellml:units="dimensionless">0.0</cn></apply></piece><piece><cn cellml:units="dimensionless">1.0</cn><apply><gt/><ci>ratio_sor</ci><cn cellml:units="dimensionless">1.0</cn></apply></piece><otherwise><ci>ratio_sor</ci></otherwise></piecewise></apply>
+
+      <apply><eq/><ci>v_sym_suc</ci><apply><times/><apply><minus/><cn cellml:units="dimensionless">1.0</cn><ci>lambda_apo</ci></apply><ci>u_in_suc</ci><ci>theta_sym</ci></apply></apply>
+      <apply><eq/><ci>v_apo_hex</ci><apply><times/><ci>lambda_apo</ci><ci>u_in_suc</ci><ci>theta_apo</ci></apply></apply>
+      <apply><eq/><ci>v_unload_sor</ci><apply><times/><ci>u_unload_sor</ci><ci>theta_sor</ci></apply></apply>
+
+      <apply><eq/><ci>f_inv_suc</ci>
+        <apply><times/><ci>k_INV</ci><apply><minus/><apply><times/><ci>K_Suc_c</ci><ci>u_c_suc</ci></apply><apply><times/><ci>K_Glu_c</ci><ci>u_c_glu</ci><ci>K_Fru_c</ci><ci>u_c_fru</ci></apply></apply></apply>
+      </apply>
+      <apply><eq/><ci>f_sdh_sor</ci>
+        <apply><times/><ci>k_SDH1</ci><apply><minus/><apply><times/><ci>K_Sor_c</ci><ci>u_c_sor</ci><ci>D_redox</ci></apply><apply><times/><ci>K_Fru_c</ci><ci>u_c_fru</ci></apply></apply></apply>
+      </apply>
+      <apply><eq/><ci>f_sdh2_sor</ci>
+        <apply><times/><ci>k_SDH2</ci><apply><minus/><apply><times/><ci>K_Sor_c</ci><ci>u_c_sor</ci><ci>D_redox</ci></apply><apply><times/><ci>K_Glu_c</ci><ci>u_c_glu</ci></apply></apply></apply>
+      </apply>
+      <apply><eq/><ci>f_iso_hex</ci>
+        <apply><times/><ci>k_ISO</ci><apply><minus/><apply><times/><ci>K_Glu_c</ci><ci>u_c_glu</ci></apply><apply><times/><ci>K_Fru_c</ci><ci>u_c_fru</ci></apply></apply></apply>
+      </apply>
+      <apply><eq/><ci>f_resp_hex</ci><apply><times/><ci>k_Resp</ci><ci>K_Fru_c</ci><ci>u_c_fru</ci></apply></apply>
+      <apply><eq/><ci>f_syn_hex</ci><apply><times/><ci>k_Syn</ci><ci>K_Glu_c</ci><ci>u_c_glu</ci></apply></apply>
+
+      <apply><eq/><ci>v_inv_suc</ci><apply><times/><ci>f_inv_suc</ci><ci>M_SUC_C</ci><ci>W_kg</ci><ci>ALPHA_C</ci></apply></apply>
+      <apply><eq/><ci>v_sdh_sor</ci><apply><times/><ci>f_sdh_sor</ci><ci>M_HEX_C</ci><ci>W_kg</ci><ci>ALPHA_C</ci></apply></apply>
+      <apply><eq/><ci>v_sdh2_sor</ci><apply><times/><ci>f_sdh2_sor</ci><ci>M_HEX_C</ci><ci>W_kg</ci><ci>ALPHA_C</ci></apply></apply>
+      <apply><eq/><ci>v_iso_hex</ci><apply><times/><ci>f_iso_hex</ci><ci>M_HEX_C</ci><ci>W_kg</ci><ci>ALPHA_C</ci></apply></apply>
+      <apply><eq/><ci>v_resp_hex</ci><apply><times/><ci>f_resp_hex</ci><ci>M_HEX_C</ci><ci>W_kg</ci><ci>ALPHA_C</ci></apply></apply>
+      <apply><eq/><ci>v_syn_hex</ci><apply><times/><ci>f_syn_hex</ci><ci>M_HEX_C</ci><ci>W_kg</ci><ci>ALPHA_C</ci></apply></apply>
+
+      <apply><eq/><apply><diff/><bvar><ci>t</ci></bvar><ci>q_c_suc</ci></apply>
+        <apply><minus/><apply><minus/><ci>v_sym_suc</ci><ci>v_inv_suc</ci></apply><ci>v_T_suc</ci></apply>
+      </apply>
+      <apply><eq/><apply><diff/><bvar><ci>t</ci></bvar><ci>q_c_sor</ci></apply>
+        <apply><minus/><apply><minus/><ci>v_unload_sor</ci><ci>v_sdh_sor</ci></apply><ci>v_sdh2_sor</ci></apply>
+      </apply>
+      <apply><eq/><apply><diff/><bvar><ci>t</ci></bvar><ci>q_c_glu</ci></apply>
+        <apply><minus/><apply><minus/><apply><minus/><apply><plus/><apply><plus/><apply><times/><cn cellml:units="dimensionless">0.5</cn><ci>v_apo_hex</ci></apply><apply><times/><cn cellml:units="dimensionless">0.5</cn><ci>v_inv_suc</ci></apply></apply><ci>v_sdh2_sor</ci></apply><ci>v_iso_hex</ci></apply><ci>v_T_glu</ci></apply><apply><plus/><ci>v_T_p_glu</ci><ci>v_syn_hex</ci></apply></apply>
+      </apply>
+      <apply><eq/><apply><diff/><bvar><ci>t</ci></bvar><ci>q_c_fru</ci></apply>
+        <apply><minus/><apply><minus/><apply><plus/><apply><plus/><apply><plus/><apply><times/><cn cellml:units="dimensionless">0.5</cn><ci>v_apo_hex</ci></apply><apply><times/><cn cellml:units="dimensionless">0.5</cn><ci>v_inv_suc</ci></apply></apply><ci>v_sdh_sor</ci></apply><ci>v_iso_hex</ci></apply><ci>v_T_fru</ci></apply><ci>v_resp_hex</ci></apply>
+      </apply>
+
+    </math>
+  </component>
+
+<component name="vacuole">
+    <variable name="t" units="day" public_interface="in"/>
+    <variable name="W_kg" units="kilogram" public_interface="in"/>
+    
+    <variable name="q_v_suc" units="g_C" initial_value="0.025" public_interface="out"/>
+    <variable name="q_v_glu" units="g_C" initial_value="0.018" public_interface="out"/>
+    <variable name="q_v_fru" units="g_C" initial_value="0.018" public_interface="out"/>
+
+    <variable name="ALPHA_V" units="dimensionless" public_interface="in"/>
+    <variable name="M_SUC_C" units="g_C_per_mol" public_interface="in"/>
+    <variable name="M_HEX_C" units="g_C_per_mol" public_interface="in"/>
+    <variable name="EFF_H_V" units="dimensionless" public_interface="in"/>
+    <variable name="EFF_H_C" units="dimensionless" public_interface="in"/>
+
+    <variable name="u_c_suc" units="mol_per_kg" public_interface="in"/>
+    <variable name="u_c_glu" units="mol_per_kg" public_interface="in"/>
+    <variable name="u_c_fru" units="mol_per_kg" public_interface="in"/>
+    <variable name="K_Suc_c" units="kg_per_mol" public_interface="in"/>
+    <variable name="K_Glu_c" units="kg_per_mol" public_interface="in"/>
+    <variable name="K_Fru_c" units="kg_per_mol" public_interface="in"/>
+
+    <variable name="K_Suc_v" units="kg_per_mol" public_interface="in"/>
+    <variable name="K_Glu_v" units="kg_per_mol" public_interface="in"/>
+    <variable name="K_Fru_v" units="kg_per_mol" public_interface="in"/>
+    <variable name="k_TSuc" units="mol_per_kg_day" public_interface="in"/>
+    <variable name="k_TGlu" units="mol_per_kg_day" public_interface="in"/>
+    <variable name="k_TFru" units="mol_per_kg_day" public_interface="in"/>
+    <variable name="k_INV_v" units="mol_per_kg_day" public_interface="in"/>
+
+    <variable name="u_v_suc" units="mol_per_kg" public_interface="out"/>
+    <variable name="u_v_glu" units="mol_per_kg" public_interface="out"/>
+    <variable name="u_v_fru" units="mol_per_kg" public_interface="out"/>
+
+    <variable name="f_T_suc" units="mol_per_kg_day"/>
+    <variable name="f_T_glu" units="mol_per_kg_day"/>
+    <variable name="f_T_fru" units="mol_per_kg_day"/>
+    <variable name="f_inv_v_suc" units="mol_per_kg_day"/>
+
+    <variable name="v_T_suc" units="g_C_per_day" public_interface="out"/>
+    <variable name="v_T_glu" units="g_C_per_day" public_interface="out"/>
+    <variable name="v_T_fru" units="g_C_per_day" public_interface="out"/>
+    <variable name="v_inv_v_suc" units="g_C_per_day"/>
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply><eq/><ci>u_v_suc</ci><apply><divide/><ci>q_v_suc</ci><apply><times/><ci>M_SUC_C</ci><ci>W_kg</ci><ci>ALPHA_V</ci></apply></apply></apply>
+      <apply><eq/><ci>u_v_glu</ci><apply><divide/><ci>q_v_glu</ci><apply><times/><ci>M_HEX_C</ci><ci>W_kg</ci><ci>ALPHA_V</ci></apply></apply></apply>
+      <apply><eq/><ci>u_v_fru</ci><apply><divide/><ci>q_v_fru</ci><apply><times/><ci>M_HEX_C</ci><ci>W_kg</ci><ci>ALPHA_V</ci></apply></apply></apply>
+
+      <apply><eq/><ci>f_T_suc</ci>
+        <apply><times/><ci>k_TSuc</ci><apply><minus/><apply><times/><ci>K_Suc_c</ci><ci>u_c_suc</ci><ci>EFF_H_V</ci></apply><apply><times/><ci>K_Suc_v</ci><ci>u_v_suc</ci><ci>EFF_H_C</ci></apply></apply></apply>
+      </apply>
+      <apply><eq/><ci>f_T_glu</ci>
+        <apply><times/><ci>k_TGlu</ci><apply><minus/><apply><times/><ci>K_Glu_c</ci><ci>u_c_glu</ci><ci>EFF_H_V</ci></apply><apply><times/><ci>K_Glu_v</ci><ci>u_v_glu</ci><ci>EFF_H_C</ci></apply></apply></apply>
+      </apply>
+      <apply><eq/><ci>f_T_fru</ci>
+        <apply><times/><ci>k_TFru</ci><apply><minus/><apply><times/><ci>K_Fru_c</ci><ci>u_c_fru</ci><ci>EFF_H_V</ci></apply><apply><times/><ci>K_Fru_v</ci><ci>u_v_fru</ci><ci>EFF_H_C</ci></apply></apply></apply>
+      </apply>
+      <apply><eq/><ci>f_inv_v_suc</ci>
+        <apply><times/><ci>k_INV_v</ci><apply><minus/><apply><times/><ci>K_Suc_v</ci><ci>u_v_suc</ci></apply><apply><times/><ci>K_Glu_v</ci><ci>u_v_glu</ci><ci>K_Fru_v</ci><ci>u_v_fru</ci></apply></apply></apply>
+      </apply>
+
+      <apply><eq/><ci>v_T_suc</ci><apply><times/><ci>f_T_suc</ci><ci>M_SUC_C</ci><ci>W_kg</ci><ci>ALPHA_V</ci></apply></apply>
+      <apply><eq/><ci>v_T_glu</ci><apply><times/><ci>f_T_glu</ci><ci>M_HEX_C</ci><ci>W_kg</ci><ci>ALPHA_V</ci></apply></apply>
+      <apply><eq/><ci>v_T_fru</ci><apply><times/><ci>f_T_fru</ci><ci>M_HEX_C</ci><ci>W_kg</ci><ci>ALPHA_V</ci></apply></apply>
+      <apply><eq/><ci>v_inv_v_suc</ci><apply><times/><ci>f_inv_v_suc</ci><ci>M_SUC_C</ci><ci>W_kg</ci><ci>ALPHA_V</ci></apply></apply>
+
+      <apply><eq/><apply><diff/><bvar><ci>t</ci></bvar><ci>q_v_suc</ci></apply><apply><minus/><ci>v_T_suc</ci><ci>v_inv_v_suc</ci></apply></apply>
+      <apply><eq/><apply><diff/><bvar><ci>t</ci></bvar><ci>q_v_glu</ci></apply><apply><plus/><ci>v_T_glu</ci><apply><times/><cn cellml:units="dimensionless">0.5</cn><ci>v_inv_v_suc</ci></apply></apply></apply>
+      <apply><eq/><apply><diff/><bvar><ci>t</ci></bvar><ci>q_v_fru</ci></apply><apply><plus/><ci>v_T_fru</ci><apply><times/><cn cellml:units="dimensionless">0.5</cn><ci>v_inv_v_suc</ci></apply></apply></apply>
+    </math>
+  </component>
+
+<component name="plastid">
+    <variable name="t" units="day" public_interface="in"/>
+    <variable name="W_kg" units="kilogram" public_interface="in"/>
+    
+    <variable name="q_p_glu" units="g_C" initial_value="0.001" public_interface="out"/>
+    <variable name="q_p_sta" units="g_C" initial_value="0.05" public_interface="out"/>
+
+    <variable name="ALPHA_P" units="dimensionless" public_interface="in"/>
+    <variable name="M_HEX_C" units="g_C_per_mol" public_interface="in"/>
+    <variable name="PHYSIO_ATP_RATIO" units="dimensionless" public_interface="in"/>
+    <variable name="PHYSIO_ADP_RATIO" units="dimensionless" public_interface="in"/>
+
+    <variable name="u_c_glu" units="mol_per_kg" public_interface="in"/>
+    <variable name="K_Glu_c" units="kg_per_mol" public_interface="in"/>
+    
+    <variable name="K_Glu_p" units="kg_per_mol" public_interface="in"/>
+    <variable name="K_Sta_p" units="dimensionless" public_interface="in"/>
+    <variable name="k_TPGlu" units="mol_per_kg_day" public_interface="in"/>
+    <variable name="k_STA" units="mol_per_kg_day" public_interface="in"/>
+    <variable name="k_AMY_max" units="mol_per_kg_day" public_interface="in"/>
+    <variable name="r_AMY" units="per_day" public_interface="in"/>
+    <variable name="t_rip" units="day" public_interface="in"/>
+
+    <variable name="u_p_glu" units="mol_per_kg" public_interface="out"/>
+    <variable name="activity_sta" units="dimensionless"/>
+    <variable name="k_AMY_t" units="mol_per_kg_day"/>
+    
+    <variable name="f_T_p_glu" units="mol_per_kg_day"/>
+    <variable name="f_sta_C" units="mol_per_kg_day"/>
+    <variable name="f_amy_C" units="mol_per_kg_day"/>
+    
+    <variable name="v_T_p_glu" units="g_C_per_day" public_interface="out"/>
+    <variable name="v_sta_C" units="g_C_per_day"/>
+    <variable name="v_amy_C" units="g_C_per_day"/>
+
+    <math xmlns="http://www.w3.org/1998/Math/MathML">
+      <apply><eq/><ci>u_p_glu</ci><apply><divide/><ci>q_p_glu</ci><apply><times/><ci>M_HEX_C</ci><ci>W_kg</ci><ci>ALPHA_P</ci></apply></apply></apply>
+
+      <apply><eq/><ci>k_AMY_t</ci>
+        <apply><divide/><ci>k_AMY_max</ci><apply><plus/><cn cellml:units="dimensionless">1.0</cn><apply><exp/><apply><times/><apply><minus/><ci>r_AMY</ci></apply><apply><minus/><ci>t</ci><ci>t_rip</ci></apply></apply></apply></apply></apply>
+      </apply>
+
+      <apply><eq/><ci>activity_sta</ci>
+        <apply><divide/><ci>q_p_sta</ci><apply><plus/><ci>q_p_sta</ci><cn cellml:units="g_C">0.0001</cn></apply></apply>
+      </apply>
+
+      <apply><eq/><ci>f_T_p_glu</ci>
+        <apply><times/><ci>k_TPGlu</ci><apply><minus/><apply><times/><ci>K_Glu_c</ci><ci>u_c_glu</ci></apply><apply><times/><ci>K_Glu_p</ci><ci>u_p_glu</ci></apply></apply></apply>
+      </apply>
+      <apply><eq/><ci>f_sta_C</ci>
+        <apply><times/><ci>k_STA</ci><apply><minus/><apply><times/><ci>K_Glu_p</ci><ci>u_p_glu</ci><ci>PHYSIO_ATP_RATIO</ci></apply><apply><times/><ci>K_Sta_p</ci><ci>activity_sta</ci><ci>PHYSIO_ADP_RATIO</ci></apply></apply></apply>
+      </apply>
+      <apply><eq/><ci>f_amy_C</ci><apply><times/><ci>k_AMY_t</ci><ci>activity_sta</ci></apply></apply>
+
+      <apply><eq/><ci>v_T_p_glu</ci><apply><times/><ci>f_T_p_glu</ci><ci>M_HEX_C</ci><ci>W_kg</ci><ci>ALPHA_P</ci></apply></apply>
+      <apply><eq/><ci>v_sta_C</ci><apply><times/><ci>f_sta_C</ci><ci>M_HEX_C</ci><ci>W_kg</ci><ci>ALPHA_P</ci></apply></apply>
+      <apply><eq/><ci>v_amy_C</ci><apply><times/><ci>f_amy_C</ci><ci>M_HEX_C</ci><ci>W_kg</ci><ci>ALPHA_P</ci></apply></apply>
+
+      <apply><eq/><apply><diff/><bvar><ci>t</ci></bvar><ci>q_p_glu</ci></apply><apply><plus/><apply><minus/><ci>v_T_p_glu</ci><ci>v_sta_C</ci></apply><ci>v_amy_C</ci></apply></apply>
+      <apply><eq/><apply><diff/><bvar><ci>t</ci></bvar><ci>q_p_sta</ci></apply><apply><minus/><ci>v_sta_C</ci><ci>v_amy_C</ci></apply></apply>
+    </math>
+  </component>
+
+  <connection>
+   <map_components component_1="environment" component_2="boundary_conditions"/>
+   <map_variables variable_1="t" variable_2="t"/>
+  </connection>
+
+  <connection>
+    <map_components component_1="environment" component_2="cytosol"/>
+    <map_variables variable_1="t" variable_2="t"/>
+  </connection>
+  <connection>
+    <map_components component_1="environment" component_2="vacuole"/>
+    <map_variables variable_1="t" variable_2="t"/>
+  </connection>
+  <connection>
+    <map_components component_1="environment" component_2="plastid"/>
+    <map_variables variable_1="t" variable_2="t"/>
+  </connection>
+
+  <connection>
+    <map_components component_1="boundary_conditions" component_2="cytosol"/>
+    <map_variables variable_1="u_unload_sor" variable_2="u_unload_sor"/>
+    <map_variables variable_1="x_phloem_suc" variable_2="x_phloem_suc"/>
+    <map_variables variable_1="x_phloem_sor" variable_2="x_phloem_sor"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="boundary_conditions" component_2="plastid"/>
+    <map_variables variable_1="t_rip" variable_2="t_rip"/>
+  </connection>
+
+  <connection>
+    <map_components component_1="cytosol" component_2="vacuole"/>
+    <map_variables variable_1="u_c_suc" variable_2="u_c_suc"/>
+    <map_variables variable_1="u_c_glu" variable_2="u_c_glu"/>
+    <map_variables variable_1="u_c_fru" variable_2="u_c_fru"/>
+    <map_variables variable_1="v_T_suc" variable_2="v_T_suc"/>
+    <map_variables variable_1="v_T_glu" variable_2="v_T_glu"/>
+    <map_variables variable_1="v_T_fru" variable_2="v_T_fru"/>
+  </connection>
+  
+  <connection>
+    <map_components component_1="cytosol" component_2="plastid"/>
+    <map_variables variable_1="u_c_glu" variable_2="u_c_glu"/>
+    <map_variables variable_1="v_T_p_glu" variable_2="v_T_p_glu"/>
+  </connection>
+
+  <connection>
+    <map_components component_1="parameters" component_2="cytosol"/>
+    <map_variables variable_1="ALPHA_C" variable_2="ALPHA_C"/>
+    <map_variables variable_1="M_SUC_C" variable_2="M_SUC_C"/>
+    <map_variables variable_1="M_HEX_C" variable_2="M_HEX_C"/>
+    <map_variables variable_1="D_redox" variable_2="D_redox"/>
+    <map_variables variable_1="lambda_apo" variable_2="lambda_apo"/>
+    <map_variables variable_1="K_Suc_c" variable_2="K_Suc_c"/>
+    <map_variables variable_1="K_Sor_c" variable_2="K_Sor_c"/>
+    <map_variables variable_1="K_Glu_c" variable_2="K_Glu_c"/>
+    <map_variables variable_1="K_Fru_c" variable_2="K_Fru_c"/>
+    <map_variables variable_1="k_INV" variable_2="k_INV"/>
+    <map_variables variable_1="k_SDH1" variable_2="k_SDH1"/>
+    <map_variables variable_1="k_SDH2" variable_2="k_SDH2"/>
+    <map_variables variable_1="k_ISO" variable_2="k_ISO"/>
+    <map_variables variable_1="k_Resp" variable_2="k_Resp"/>
+    <map_variables variable_1="k_Syn" variable_2="k_Syn"/>
+  </connection>
+
+  <connection>
+    <map_components component_1="parameters" component_2="vacuole"/>
+    <map_variables variable_1="ALPHA_V" variable_2="ALPHA_V"/>
+    <map_variables variable_1="M_SUC_C" variable_2="M_SUC_C"/>
+    <map_variables variable_1="M_HEX_C" variable_2="M_HEX_C"/>
+    <map_variables variable_1="EFF_H_V" variable_2="EFF_H_V"/>
+    <map_variables variable_1="EFF_H_C" variable_2="EFF_H_C"/>
+    <map_variables variable_1="K_Suc_c" variable_2="K_Suc_c"/>
+    <map_variables variable_1="K_Glu_c" variable_2="K_Glu_c"/>
+    <map_variables variable_1="K_Fru_c" variable_2="K_Fru_c"/>
+    <map_variables variable_1="K_Suc_v" variable_2="K_Suc_v"/>
+    <map_variables variable_1="K_Glu_v" variable_2="K_Glu_v"/>
+    <map_variables variable_1="K_Fru_v" variable_2="K_Fru_v"/>
+    <map_variables variable_1="k_TSuc" variable_2="k_TSuc"/>
+    <map_variables variable_1="k_TGlu" variable_2="k_TGlu"/>
+    <map_variables variable_1="k_TFru" variable_2="k_TFru"/>
+    <map_variables variable_1="k_INV_v" variable_2="k_INV_v"/>
+  </connection>
+
+  <connection>
+    <map_components component_1="parameters" component_2="plastid"/>
+    <map_variables variable_1="ALPHA_P" variable_2="ALPHA_P"/>
+    <map_variables variable_1="M_HEX_C" variable_2="M_HEX_C"/>
+    <map_variables variable_1="PHYSIO_ATP_RATIO" variable_2="PHYSIO_ATP_RATIO"/>
+    <map_variables variable_1="PHYSIO_ADP_RATIO" variable_2="PHYSIO_ADP_RATIO"/>
+    <map_variables variable_1="K_Glu_c" variable_2="K_Glu_c"/>
+    <map_variables variable_1="K_Glu_p" variable_2="K_Glu_p"/>
+    <map_variables variable_1="K_Sta_p" variable_2="K_Sta_p"/>
+    <map_variables variable_1="k_TPGlu" variable_2="k_TPGlu"/>
+    <map_variables variable_1="k_STA" variable_2="k_STA"/>
+    <map_variables variable_1="k_AMY_max" variable_2="k_AMY_max"/>
+    <map_variables variable_1="r_AMY" variable_2="r_AMY"/>
+  </connection>
+
+  <connection>
+    <map_components component_1="environment" component_2="thermohydraulics"/>
+    <map_variables variable_1="t" variable_2="t"/>
+  </connection>
+
+  <connection>
+    <map_components component_1="thermohydraulics" component_2="boundary_conditions"/>
+    <map_variables variable_1="u_stem_water" variable_2="u_stem_water"/>
+    <map_variables variable_1="u_atm_water" variable_2="u_atm_water"/>
+    <map_variables variable_1="x_phloem_suc" variable_2="x_phloem_suc"/>
+  </connection>
+
+  <connection>
+    <map_components component_1="thermohydraulics" component_2="cytosol"/>
+    <map_variables variable_1="v_in_suc" variable_2="u_in_suc"/>
+  </connection>
+
+  <connection>
+    <map_components component_1="cytosol" component_2="thermohydraulics"/>
+    <map_variables variable_1="q_c_suc" variable_2="q_c_suc"/>
+    <map_variables variable_1="q_c_sor" variable_2="q_c_sor"/>
+    <map_variables variable_1="q_c_glu" variable_2="q_c_glu"/>
+    <map_variables variable_1="q_c_fru" variable_2="q_c_fru"/>
+	<map_variables variable_1="W_kg" variable_2="W_kg"/>
+  </connection>
+  <connection>
+    <map_components component_1="vacuole" component_2="thermohydraulics"/>
+    <map_variables variable_1="q_v_suc" variable_2="q_v_suc"/>
+    <map_variables variable_1="q_v_glu" variable_2="q_v_glu"/>
+    <map_variables variable_1="q_v_fru" variable_2="q_v_fru"/>
+	<map_variables variable_1="W_kg" variable_2="W_kg"/>
+  </connection>
+  <connection>
+    <map_components component_1="plastid" component_2="thermohydraulics"/>
+    <map_variables variable_1="q_p_glu" variable_2="q_p_glu"/>
+	<map_variables variable_1="W_kg" variable_2="W_kg"/>
+  </connection>
+
+  <connection>
+    <map_components component_1="parameters" component_2="thermohydraulics"/>
+    <map_variables variable_1="M_SUC_C" variable_2="M_SUC_C"/>
+    <map_variables variable_1="M_HEX_C" variable_2="M_HEX_C"/>
+    <map_variables variable_1="PHI_N" variable_2="PHI_N"/>
+    <map_variables variable_1="rho_water" variable_2="rho_water"/>
+    <map_variables variable_1="C_bg" variable_2="C_bg"/>
+    <map_variables variable_1="Y" variable_2="Y"/>
+    <map_variables variable_1="phi_W" variable_2="phi_W"/>
+    <map_variables variable_1="delta_lockhart" variable_2="delta_lockhart"/>
+    <map_variables variable_1="L_x" variable_2="L_x"/>
+    <map_variables variable_1="L_p" variable_2="L_p"/>
+    <map_variables variable_1="g_skin" variable_2="g_skin"/>
+    <map_variables variable_1="epsilon" variable_2="epsilon"/>
+    <map_variables variable_1="Pi_phloem_sap" variable_2="Pi_phloem_sap"/>
+  </connection>
+
+</model>

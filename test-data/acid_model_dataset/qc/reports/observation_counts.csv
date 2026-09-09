@@ -1,0 +1,347 @@
+"study_id","cultivar","treatment_id","variable","unit","n_observations"
+"bobeica_2015_sangiovese","Sangiovese","12L","air_temperature","degree_C",36
+"bobeica_2015_sangiovese","Sangiovese","12L","anthocyanin","mg/100 g FW",36
+"bobeica_2015_sangiovese","Sangiovese","12L","berry_carbon","g C/vine",24
+"bobeica_2015_sangiovese","Sangiovese","12L","berry_fresh_mass","g/berry",36
+"bobeica_2015_sangiovese","Sangiovese","12L","berry_number_per_vine","count/vine",24
+"bobeica_2015_sangiovese","Sangiovese","12L","berry_pH","dimensionless",36
+"bobeica_2015_sangiovese","Sangiovese","12L","brix","degree_Brix",36
+"bobeica_2015_sangiovese","Sangiovese","12L","hexose","g/L",36
+"bobeica_2015_sangiovese","Sangiovese","12L","hexose_per_berry","g/berry",24
+"bobeica_2015_sangiovese","Sangiovese","12L","hexose_per_vine","g/vine",24
+"bobeica_2015_sangiovese","Sangiovese","12L","malate_concentration","mol/L",36
+"bobeica_2015_sangiovese","Sangiovese","12L","potassium_concentration","mol/L",36
+"bobeica_2015_sangiovese","Sangiovese","12L","tartrate_concentration","mol/L",36
+"bobeica_2015_sangiovese","Sangiovese","12L","total_acidity","g/L",36
+"bobeica_2015_sangiovese","Sangiovese","3L","air_temperature","degree_C",40
+"bobeica_2015_sangiovese","Sangiovese","3L","anthocyanin","mg/100 g FW",40
+"bobeica_2015_sangiovese","Sangiovese","3L","berry_carbon","g C/vine",24
+"bobeica_2015_sangiovese","Sangiovese","3L","berry_fresh_mass","g/berry",40
+"bobeica_2015_sangiovese","Sangiovese","3L","berry_number_per_vine","count/vine",24
+"bobeica_2015_sangiovese","Sangiovese","3L","berry_pH","dimensionless",40
+"bobeica_2015_sangiovese","Sangiovese","3L","brix","degree_Brix",40
+"bobeica_2015_sangiovese","Sangiovese","3L","hexose","g/L",40
+"bobeica_2015_sangiovese","Sangiovese","3L","hexose_per_berry","g/berry",24
+"bobeica_2015_sangiovese","Sangiovese","3L","hexose_per_vine","g/vine",24
+"bobeica_2015_sangiovese","Sangiovese","3L","malate_concentration","mol/L",40
+"bobeica_2015_sangiovese","Sangiovese","3L","potassium_concentration","mol/L",36
+"bobeica_2015_sangiovese","Sangiovese","3L","tartrate_concentration","mol/L",40
+"bobeica_2015_sangiovese","Sangiovese","3L","total_acidity","g/L",40
+"etchebarne_2010_grenache","Grenache","A1","air_temperature","degree_C",40
+"etchebarne_2010_grenache","Grenache","A1","berry_dry_mass","g/berry",40
+"etchebarne_2010_grenache","Grenache","A1","berry_dry_matter_fraction","% FW",40
+"etchebarne_2010_grenache","Grenache","A1","berry_fresh_mass","g/berry",40
+"etchebarne_2010_grenache","Grenache","A1","berry_mass_per_cluster","g/cluster",40
+"etchebarne_2010_grenache","Grenache","A1","berry_number_per_cluster","count/cluster",40
+"etchebarne_2010_grenache","Grenache","A1","berry_pH","dimensionless",40
+"etchebarne_2010_grenache","Grenache","A1","berry_volume","mL/berry",40
+"etchebarne_2010_grenache","Grenache","A1","berry_water_fraction","% FW",40
+"etchebarne_2010_grenache","Grenache","A1","berry_water_volume","mL/berry",40
+"etchebarne_2010_grenache","Grenache","A1","brix","degree_Brix",24
+"etchebarne_2010_grenache","Grenache","A1","calcium_concentration","mg/L",40
+"etchebarne_2010_grenache","Grenache","A1","cluster_fresh_mass","g/cluster",40
+"etchebarne_2010_grenache","Grenache","A1","cluster_length","cm",40
+"etchebarne_2010_grenache","Grenache","A1","hexose","g/L",40
+"etchebarne_2010_grenache","Grenache","A1","hexose_per_berry","mg/berry",40
+"etchebarne_2010_grenache","Grenache","A1","magnesium_concentration","mg/L",40
+"etchebarne_2010_grenache","Grenache","A1","malate_concentration","mol/L",36
+"etchebarne_2010_grenache","Grenache","A1","potassium_concentration","mol/L",40
+"etchebarne_2010_grenache","Grenache","A1","rachis_fresh_mass","g/cluster",40
+"etchebarne_2010_grenache","Grenache","A1","sodium_concentration","mg/L",40
+"etchebarne_2010_grenache","Grenache","A1","tartrate_concentration","mol/L",36
+"etchebarne_2010_grenache","Grenache","A1","titratable_acidity","g/L",40
+"etchebarne_2010_grenache","Grenache","A1","titratable_acidity_per_berry","mg/berry",36
+"etchebarne_2010_grenache","Grenache","A1","total_soluble_sugar","g/L",40
+"etchebarne_2010_grenache","Grenache","A1","total_soluble_sugar_per_berry","mg/berry",40
+"etchebarne_2010_grenache","Grenache","A2","air_temperature","degree_C",40
+"etchebarne_2010_grenache","Grenache","A2","berry_dry_mass","g/berry",40
+"etchebarne_2010_grenache","Grenache","A2","berry_dry_matter_fraction","% FW",40
+"etchebarne_2010_grenache","Grenache","A2","berry_fresh_mass","g/berry",40
+"etchebarne_2010_grenache","Grenache","A2","berry_mass_per_cluster","g/cluster",40
+"etchebarne_2010_grenache","Grenache","A2","berry_number_per_cluster","count/cluster",40
+"etchebarne_2010_grenache","Grenache","A2","berry_pH","dimensionless",40
+"etchebarne_2010_grenache","Grenache","A2","berry_volume","mL/berry",40
+"etchebarne_2010_grenache","Grenache","A2","berry_water_fraction","% FW",40
+"etchebarne_2010_grenache","Grenache","A2","berry_water_volume","mL/berry",40
+"etchebarne_2010_grenache","Grenache","A2","brix","degree_Brix",24
+"etchebarne_2010_grenache","Grenache","A2","calcium_concentration","mg/L",40
+"etchebarne_2010_grenache","Grenache","A2","cluster_fresh_mass","g/cluster",40
+"etchebarne_2010_grenache","Grenache","A2","cluster_length","cm",40
+"etchebarne_2010_grenache","Grenache","A2","hexose","g/L",40
+"etchebarne_2010_grenache","Grenache","A2","hexose_per_berry","mg/berry",40
+"etchebarne_2010_grenache","Grenache","A2","magnesium_concentration","mg/L",40
+"etchebarne_2010_grenache","Grenache","A2","malate_concentration","mol/L",36
+"etchebarne_2010_grenache","Grenache","A2","potassium_concentration","mol/L",40
+"etchebarne_2010_grenache","Grenache","A2","rachis_fresh_mass","g/cluster",40
+"etchebarne_2010_grenache","Grenache","A2","sodium_concentration","mg/L",40
+"etchebarne_2010_grenache","Grenache","A2","tartrate_concentration","mol/L",36
+"etchebarne_2010_grenache","Grenache","A2","titratable_acidity","g/L",40
+"etchebarne_2010_grenache","Grenache","A2","titratable_acidity_per_berry","mg/berry",40
+"etchebarne_2010_grenache","Grenache","A2","total_soluble_sugar","g/L",40
+"etchebarne_2010_grenache","Grenache","A2","total_soluble_sugar_per_berry","mg/berry",40
+"etchebarne_2010_grenache","Grenache","B1","air_temperature","degree_C",40
+"etchebarne_2010_grenache","Grenache","B1","berry_dry_mass","g/berry",40
+"etchebarne_2010_grenache","Grenache","B1","berry_dry_matter_fraction","% FW",40
+"etchebarne_2010_grenache","Grenache","B1","berry_fresh_mass","g/berry",40
+"etchebarne_2010_grenache","Grenache","B1","berry_mass_per_cluster","g/cluster",40
+"etchebarne_2010_grenache","Grenache","B1","berry_number_per_cluster","count/cluster",40
+"etchebarne_2010_grenache","Grenache","B1","berry_pH","dimensionless",40
+"etchebarne_2010_grenache","Grenache","B1","berry_volume","mL/berry",40
+"etchebarne_2010_grenache","Grenache","B1","berry_water_fraction","% FW",40
+"etchebarne_2010_grenache","Grenache","B1","berry_water_volume","mL/berry",40
+"etchebarne_2010_grenache","Grenache","B1","brix","degree_Brix",24
+"etchebarne_2010_grenache","Grenache","B1","calcium_concentration","mg/L",40
+"etchebarne_2010_grenache","Grenache","B1","cluster_fresh_mass","g/cluster",40
+"etchebarne_2010_grenache","Grenache","B1","cluster_length","cm",40
+"etchebarne_2010_grenache","Grenache","B1","hexose","g/L",40
+"etchebarne_2010_grenache","Grenache","B1","hexose_per_berry","mg/berry",40
+"etchebarne_2010_grenache","Grenache","B1","magnesium_concentration","mg/L",40
+"etchebarne_2010_grenache","Grenache","B1","malate_concentration","mol/L",36
+"etchebarne_2010_grenache","Grenache","B1","potassium_concentration","mol/L",40
+"etchebarne_2010_grenache","Grenache","B1","rachis_fresh_mass","g/cluster",40
+"etchebarne_2010_grenache","Grenache","B1","sodium_concentration","mg/L",40
+"etchebarne_2010_grenache","Grenache","B1","tartrate_concentration","mol/L",36
+"etchebarne_2010_grenache","Grenache","B1","titratable_acidity","g/L",40
+"etchebarne_2010_grenache","Grenache","B1","titratable_acidity_per_berry","mg/berry",40
+"etchebarne_2010_grenache","Grenache","B1","total_soluble_sugar","g/L",40
+"etchebarne_2010_grenache","Grenache","B1","total_soluble_sugar_per_berry","mg/berry",40
+"etchebarne_2010_grenache","Grenache","B2","air_temperature","degree_C",40
+"etchebarne_2010_grenache","Grenache","B2","berry_dry_mass","g/berry",40
+"etchebarne_2010_grenache","Grenache","B2","berry_dry_matter_fraction","% FW",40
+"etchebarne_2010_grenache","Grenache","B2","berry_fresh_mass","g/berry",40
+"etchebarne_2010_grenache","Grenache","B2","berry_mass_per_cluster","g/cluster",40
+"etchebarne_2010_grenache","Grenache","B2","berry_number_per_cluster","count/cluster",40
+"etchebarne_2010_grenache","Grenache","B2","berry_pH","dimensionless",40
+"etchebarne_2010_grenache","Grenache","B2","berry_volume","mL/berry",40
+"etchebarne_2010_grenache","Grenache","B2","berry_water_fraction","% FW",40
+"etchebarne_2010_grenache","Grenache","B2","berry_water_volume","mL/berry",40
+"etchebarne_2010_grenache","Grenache","B2","brix","degree_Brix",24
+"etchebarne_2010_grenache","Grenache","B2","calcium_concentration","mg/L",40
+"etchebarne_2010_grenache","Grenache","B2","cluster_fresh_mass","g/cluster",40
+"etchebarne_2010_grenache","Grenache","B2","cluster_length","cm",40
+"etchebarne_2010_grenache","Grenache","B2","hexose","g/L",40
+"etchebarne_2010_grenache","Grenache","B2","hexose_per_berry","mg/berry",40
+"etchebarne_2010_grenache","Grenache","B2","magnesium_concentration","mg/L",40
+"etchebarne_2010_grenache","Grenache","B2","malate_concentration","mol/L",36
+"etchebarne_2010_grenache","Grenache","B2","potassium_concentration","mol/L",40
+"etchebarne_2010_grenache","Grenache","B2","rachis_fresh_mass","g/cluster",40
+"etchebarne_2010_grenache","Grenache","B2","sodium_concentration","mg/L",40
+"etchebarne_2010_grenache","Grenache","B2","tartrate_concentration","mol/L",36
+"etchebarne_2010_grenache","Grenache","B2","titratable_acidity","g/L",40
+"etchebarne_2010_grenache","Grenache","B2","titratable_acidity_per_berry","mg/berry",40
+"etchebarne_2010_grenache","Grenache","B2","total_soluble_sugar","g/L",40
+"etchebarne_2010_grenache","Grenache","B2","total_soluble_sugar_per_berry","mg/berry",40
+"etchebarne_2010_grenache","Grenache","CI","air_temperature","degree_C",4
+"etchebarne_2010_grenache","Grenache","CI","berry_dry_mass","g/berry",4
+"etchebarne_2010_grenache","Grenache","CI","berry_dry_matter_fraction","% FW",4
+"etchebarne_2010_grenache","Grenache","CI","berry_fresh_mass","g/berry",4
+"etchebarne_2010_grenache","Grenache","CI","berry_mass_per_cluster","g/cluster",4
+"etchebarne_2010_grenache","Grenache","CI","berry_number_per_cluster","count/cluster",4
+"etchebarne_2010_grenache","Grenache","CI","berry_pH","dimensionless",4
+"etchebarne_2010_grenache","Grenache","CI","berry_volume","mL/berry",4
+"etchebarne_2010_grenache","Grenache","CI","berry_water_fraction","% FW",4
+"etchebarne_2010_grenache","Grenache","CI","berry_water_volume","mL/berry",4
+"etchebarne_2010_grenache","Grenache","CI","brix","degree_Brix",4
+"etchebarne_2010_grenache","Grenache","CI","calcium_concentration","mg/L",4
+"etchebarne_2010_grenache","Grenache","CI","cluster_fresh_mass","g/cluster",4
+"etchebarne_2010_grenache","Grenache","CI","cluster_length","cm",4
+"etchebarne_2010_grenache","Grenache","CI","hexose","g/L",4
+"etchebarne_2010_grenache","Grenache","CI","hexose_per_berry","mg/berry",4
+"etchebarne_2010_grenache","Grenache","CI","magnesium_concentration","mg/L",4
+"etchebarne_2010_grenache","Grenache","CI","malate_concentration","mol/L",4
+"etchebarne_2010_grenache","Grenache","CI","potassium_concentration","mol/L",4
+"etchebarne_2010_grenache","Grenache","CI","rachis_fresh_mass","g/cluster",4
+"etchebarne_2010_grenache","Grenache","CI","sodium_concentration","mg/L",4
+"etchebarne_2010_grenache","Grenache","CI","tartrate_concentration","mol/L",4
+"etchebarne_2010_grenache","Grenache","CI","titratable_acidity","g/L",4
+"etchebarne_2010_grenache","Grenache","CI","titratable_acidity_per_berry","mg/berry",2
+"etchebarne_2010_grenache","Grenache","CI","total_soluble_sugar","g/L",4
+"etchebarne_2010_grenache","Grenache","CI","total_soluble_sugar_per_berry","mg/berry",4
+"etchebarne_2010_grenache","Grenache","CNI","air_temperature","degree_C",4
+"etchebarne_2010_grenache","Grenache","CNI","berry_dry_mass","g/berry",4
+"etchebarne_2010_grenache","Grenache","CNI","berry_dry_matter_fraction","% FW",4
+"etchebarne_2010_grenache","Grenache","CNI","berry_fresh_mass","g/berry",4
+"etchebarne_2010_grenache","Grenache","CNI","berry_mass_per_cluster","g/cluster",4
+"etchebarne_2010_grenache","Grenache","CNI","berry_number_per_cluster","count/cluster",4
+"etchebarne_2010_grenache","Grenache","CNI","berry_pH","dimensionless",4
+"etchebarne_2010_grenache","Grenache","CNI","berry_volume","mL/berry",4
+"etchebarne_2010_grenache","Grenache","CNI","berry_water_fraction","% FW",4
+"etchebarne_2010_grenache","Grenache","CNI","berry_water_volume","mL/berry",4
+"etchebarne_2010_grenache","Grenache","CNI","brix","degree_Brix",4
+"etchebarne_2010_grenache","Grenache","CNI","calcium_concentration","mg/L",4
+"etchebarne_2010_grenache","Grenache","CNI","cluster_fresh_mass","g/cluster",4
+"etchebarne_2010_grenache","Grenache","CNI","cluster_length","cm",4
+"etchebarne_2010_grenache","Grenache","CNI","hexose","g/L",4
+"etchebarne_2010_grenache","Grenache","CNI","hexose_per_berry","mg/berry",4
+"etchebarne_2010_grenache","Grenache","CNI","magnesium_concentration","mg/L",4
+"etchebarne_2010_grenache","Grenache","CNI","malate_concentration","mol/L",4
+"etchebarne_2010_grenache","Grenache","CNI","potassium_concentration","mol/L",4
+"etchebarne_2010_grenache","Grenache","CNI","rachis_fresh_mass","g/cluster",4
+"etchebarne_2010_grenache","Grenache","CNI","sodium_concentration","mg/L",4
+"etchebarne_2010_grenache","Grenache","CNI","tartrate_concentration","mol/L",4
+"etchebarne_2010_grenache","Grenache","CNI","titratable_acidity","g/L",4
+"etchebarne_2010_grenache","Grenache","CNI","titratable_acidity_per_berry","mg/berry",4
+"etchebarne_2010_grenache","Grenache","CNI","total_soluble_sugar","g/L",4
+"etchebarne_2010_grenache","Grenache","CNI","total_soluble_sugar_per_berry","mg/berry",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","air_temperature","degree_C",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","berry_dry_mass","g/berry",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","berry_dry_matter_fraction","% FW",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","berry_fresh_mass","g/berry",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","berry_mass_per_cluster","g/cluster",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","berry_number_per_cluster","count/cluster",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","berry_pH","dimensionless",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","berry_volume","mL/berry",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","berry_water_fraction","% FW",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","berry_water_volume","mL/berry",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","calcium_concentration","mg/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","cluster_fresh_mass","g/cluster",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","cluster_length","cm",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","hexose","g/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","hexose_per_berry","mg/berry",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","magnesium_concentration","mg/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","malate_concentration","mol/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","potassium_concentration","mol/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","rachis_fresh_mass","g/cluster",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","sodium_concentration","mg/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","tartrate_concentration","mol/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","titratable_acidity","g/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","titratable_acidity_per_berry","mg/berry",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","total_soluble_sugar","g/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","total_soluble_sugar_per_berry","mg/berry",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","air_temperature","degree_C",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","berry_dry_mass","g/berry",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","berry_dry_matter_fraction","% FW",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","berry_fresh_mass","g/berry",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","berry_mass_per_cluster","g/cluster",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","berry_number_per_cluster","count/cluster",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","berry_pH","dimensionless",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","berry_volume","mL/berry",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","berry_water_fraction","% FW",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","berry_water_volume","mL/berry",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","calcium_concentration","mg/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","cluster_fresh_mass","g/cluster",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","cluster_length","cm",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","hexose","g/L",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","hexose_per_berry","mg/berry",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","magnesium_concentration","mg/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","malate_concentration","mol/L",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","potassium_concentration","mol/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","rachis_fresh_mass","g/cluster",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","sodium_concentration","mg/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","tartrate_concentration","mol/L",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","titratable_acidity","g/L",8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","titratable_acidity_per_berry","mg/berry",8
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","air_temperature","degree_C",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","berry_dry_mass","g/berry",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","berry_dry_matter_fraction","% FW",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","berry_fresh_mass","g/berry",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","berry_mass_per_cluster","g/cluster",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","berry_number_per_cluster","count/cluster",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","berry_pH","dimensionless",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","berry_volume","mL/berry",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","berry_water_fraction","% FW",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","berry_water_volume","mL/berry",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","calcium_concentration","mg/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","cluster_fresh_mass","g/cluster",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","cluster_length","cm",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","hexose","g/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","hexose_per_berry","mg/berry",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","magnesium_concentration","mg/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","malate_concentration","mol/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","potassium_concentration","mol/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","rachis_fresh_mass","g/cluster",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","sodium_concentration","mg/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","tartrate_concentration","mol/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","titratable_acidity","g/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","titratable_acidity_per_berry","mg/berry",3
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","total_soluble_sugar","g/L",4
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","total_soluble_sugar_per_berry","mg/berry",4
+"kliewer_lider_1970","Cardinal","HL_T20","air_temperature","degree_C",5
+"kliewer_lider_1970","Cardinal","HL_T20","berry_fresh_mass","g/berry",5
+"kliewer_lider_1970","Cardinal","HL_T20","berry_pH","dimensionless",5
+"kliewer_lider_1970","Cardinal","HL_T20","brix","degree_Brix",5
+"kliewer_lider_1970","Cardinal","HL_T20","malate_concentration","mol/L",5
+"kliewer_lider_1970","Cardinal","HL_T20","tartrate_concentration","mol/L",5
+"kliewer_lider_1970","Cardinal","HL_T20","total_acidity","g tartaric_acid_equivalent/L",5
+"kliewer_lider_1970","Cardinal","HL_T30","air_temperature","degree_C",5
+"kliewer_lider_1970","Cardinal","HL_T30","berry_fresh_mass","g/berry",5
+"kliewer_lider_1970","Cardinal","HL_T30","berry_pH","dimensionless",5
+"kliewer_lider_1970","Cardinal","HL_T30","brix","degree_Brix",5
+"kliewer_lider_1970","Cardinal","HL_T30","malate_concentration","mol/L",5
+"kliewer_lider_1970","Cardinal","HL_T30","tartrate_concentration","mol/L",5
+"kliewer_lider_1970","Cardinal","HL_T30","total_acidity","g tartaric_acid_equivalent/L",5
+"kliewer_lider_1970","Cardinal","LL_T20","air_temperature","degree_C",5
+"kliewer_lider_1970","Cardinal","LL_T20","berry_fresh_mass","g/berry",5
+"kliewer_lider_1970","Cardinal","LL_T20","berry_pH","dimensionless",5
+"kliewer_lider_1970","Cardinal","LL_T20","brix","degree_Brix",5
+"kliewer_lider_1970","Cardinal","LL_T20","malate_concentration","mol/L",5
+"kliewer_lider_1970","Cardinal","LL_T20","tartrate_concentration","mol/L",5
+"kliewer_lider_1970","Cardinal","LL_T20","total_acidity","g tartaric_acid_equivalent/L",5
+"kliewer_lider_1970","Cardinal","LL_T30","air_temperature","degree_C",5
+"kliewer_lider_1970","Cardinal","LL_T30","berry_fresh_mass","g/berry",5
+"kliewer_lider_1970","Cardinal","LL_T30","berry_pH","dimensionless",5
+"kliewer_lider_1970","Cardinal","LL_T30","brix","degree_Brix",5
+"kliewer_lider_1970","Cardinal","LL_T30","malate_concentration","mol/L",5
+"kliewer_lider_1970","Cardinal","LL_T30","tartrate_concentration","mol/L",5
+"kliewer_lider_1970","Cardinal","LL_T30","total_acidity","g tartaric_acid_equivalent/L",5
+"kliewer_lider_1970","Pinot Noir","HL_T20","air_temperature","degree_C",5
+"kliewer_lider_1970","Pinot Noir","HL_T20","berry_fresh_mass","g/berry",5
+"kliewer_lider_1970","Pinot Noir","HL_T20","berry_pH","dimensionless",5
+"kliewer_lider_1970","Pinot Noir","HL_T20","brix","degree_Brix",5
+"kliewer_lider_1970","Pinot Noir","HL_T20","malate_concentration","mol/L",5
+"kliewer_lider_1970","Pinot Noir","HL_T20","tartrate_concentration","mol/L",5
+"kliewer_lider_1970","Pinot Noir","HL_T20","total_acidity","g tartaric_acid_equivalent/L",5
+"kliewer_lider_1970","Pinot Noir","HL_T30","air_temperature","degree_C",5
+"kliewer_lider_1970","Pinot Noir","HL_T30","berry_fresh_mass","g/berry",5
+"kliewer_lider_1970","Pinot Noir","HL_T30","berry_pH","dimensionless",5
+"kliewer_lider_1970","Pinot Noir","HL_T30","brix","degree_Brix",5
+"kliewer_lider_1970","Pinot Noir","HL_T30","malate_concentration","mol/L",5
+"kliewer_lider_1970","Pinot Noir","HL_T30","tartrate_concentration","mol/L",5
+"kliewer_lider_1970","Pinot Noir","HL_T30","total_acidity","g tartaric_acid_equivalent/L",5
+"kliewer_lider_1970","Pinot Noir","LL_T20","air_temperature","degree_C",5
+"kliewer_lider_1970","Pinot Noir","LL_T20","berry_fresh_mass","g/berry",5
+"kliewer_lider_1970","Pinot Noir","LL_T20","berry_pH","dimensionless",5
+"kliewer_lider_1970","Pinot Noir","LL_T20","brix","degree_Brix",5
+"kliewer_lider_1970","Pinot Noir","LL_T20","malate_concentration","mol/L",5
+"kliewer_lider_1970","Pinot Noir","LL_T20","tartrate_concentration","mol/L",5
+"kliewer_lider_1970","Pinot Noir","LL_T20","total_acidity","g tartaric_acid_equivalent/L",5
+"kliewer_lider_1970","Pinot Noir","LL_T30","air_temperature","degree_C",5
+"kliewer_lider_1970","Pinot Noir","LL_T30","berry_fresh_mass","g/berry",5
+"kliewer_lider_1970","Pinot Noir","LL_T30","berry_pH","dimensionless",5
+"kliewer_lider_1970","Pinot Noir","LL_T30","brix","degree_Brix",5
+"kliewer_lider_1970","Pinot Noir","LL_T30","malate_concentration","mol/L",5
+"kliewer_lider_1970","Pinot Noir","LL_T30","tartrate_concentration","mol/L",5
+"kliewer_lider_1970","Pinot Noir","LL_T30","total_acidity","g tartaric_acid_equivalent/L",5
+"soyer_molot_1993","Cabernet Sauvignon","K0","air_temperature","degree_C",39
+"soyer_molot_1993","Cabernet Sauvignon","K0","berry_fresh_mass","g/berry",39
+"soyer_molot_1993","Cabernet Sauvignon","K0","berry_pH","dimensionless",39
+"soyer_molot_1993","Cabernet Sauvignon","K0","brix","degree_Brix",39
+"soyer_molot_1993","Cabernet Sauvignon","K0","calcium_concentration","mg/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K0","magnesium_concentration","mg/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K0","malate_concentration","mol/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K0","potassium_concentration","mol/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K0","tartrate_concentration","mol/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K0","titratable_acidity","g H2SO4 equivalent/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K0","total_soluble_sugar","g/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K120","air_temperature","degree_C",39
+"soyer_molot_1993","Cabernet Sauvignon","K120","berry_fresh_mass","g/berry",39
+"soyer_molot_1993","Cabernet Sauvignon","K120","berry_pH","dimensionless",39
+"soyer_molot_1993","Cabernet Sauvignon","K120","brix","degree_Brix",39
+"soyer_molot_1993","Cabernet Sauvignon","K120","calcium_concentration","mg/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K120","magnesium_concentration","mg/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K120","malate_concentration","mol/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K120","potassium_concentration","mol/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K120","tartrate_concentration","mol/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K120","titratable_acidity","g H2SO4 equivalent/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K120","total_soluble_sugar","g/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K60","air_temperature","degree_C",39
+"soyer_molot_1993","Cabernet Sauvignon","K60","berry_fresh_mass","g/berry",39
+"soyer_molot_1993","Cabernet Sauvignon","K60","berry_pH","dimensionless",39
+"soyer_molot_1993","Cabernet Sauvignon","K60","brix","degree_Brix",39
+"soyer_molot_1993","Cabernet Sauvignon","K60","calcium_concentration","mg/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K60","magnesium_concentration","mg/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K60","malate_concentration","mol/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K60","potassium_concentration","mol/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K60","tartrate_concentration","mol/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K60","titratable_acidity","g H2SO4 equivalent/L",39
+"soyer_molot_1993","Cabernet Sauvignon","K60","total_soluble_sugar","g/L",39

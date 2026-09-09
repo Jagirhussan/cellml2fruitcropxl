@@ -17,6 +17,19 @@ class JavaEmitter:
         self.var_info = var_info
         self.state_names = [s["name"] for s in state_info]
         self.var_names = [v["name"] for v in var_info]
+        self.array_names = {
+            "variables": self.var_names,
+            "constants": [v["name"] for v in var_info if v["type"] == "Constant"],
+            "computed_constants": [
+                v["name"] for v in var_info if v["type"] == "ComputedConstant"
+            ],
+            "algebraic_variables": [
+                v["name"] for v in var_info if v["type"] == "Algebraic"
+            ],
+            "external_variables": [
+                v["name"] for v in var_info if v["type"] == "External"
+            ],
+        }
 
     def emit_expr(self, node):
         """Recursively emit a Java expression string from a Python AST node."""
@@ -41,8 +54,10 @@ class JavaEmitter:
                 return self.state_names[idx]
             elif arr_name == "rates" and idx is not None and idx < len(self.state_names):
                 return f"d_{self.state_names[idx]}_dt"
-            elif arr_name == "variables" and idx is not None and idx < len(self.var_names):
-                return self.var_names[idx]
+            elif arr_name in self.array_names and idx is not None:
+                names = self.array_names[arr_name]
+                if idx < len(names):
+                    return names[idx]
             return f"{arr_name}[{idx}]"
 
         elif isinstance(node, ast.BinOp):

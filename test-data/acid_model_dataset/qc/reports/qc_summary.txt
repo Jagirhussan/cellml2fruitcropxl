@@ -1,0 +1,21 @@
+Acid-model dataset quality-control summary
+Generated: 2026-09-07 16:54:03 +1200
+Observation rows: 7148
+Sampling units: 417
+
+PASS	no duplicate sampling-unit variable records	0 duplicate rows
+PASS	all canonical observation units recognized	
+PASS	pH plausible	range 2.210 to 3.850
+PASS	concentrations and fruit traits non-negative	0 negative records
+PASS	temperature Kelvin conversion	maximum absolute error 5.68e-14 K
+PASS	treatment identities present in metadata	
+PASS	Benjamin model roles assigned	
+PASS	every observation source resolves in manifest	
+PASS	curated raw copies match historical originals	0 checksum mismatches
+PASS	developmental time non-decreasing in source order	
+
+Interpretive cautions:
+- Kliewer potassium is structurally absent; its prescribed temperature regime is not hourly weather.
+- Bobeica DAF 105 has no potassium and is outside Benjamin's final coupled-model selection.
+- Etchebarne's declared A1/A2/B1/B2 subset and the 164 rows read by the final script are not identical.
+- Plausibility checks detect transcription/unit problems; they do not validate biological mechanisms.

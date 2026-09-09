@@ -1,0 +1,199 @@
+"study_id","cultivar","treatment_id","variable","n_sampling_units","n_available","n_missing"
+"bobeica_2015_sangiovese","Sangiovese","12L","temperature",36,36,0
+"bobeica_2015_sangiovese","Sangiovese","12L","pH",36,36,0
+"bobeica_2015_sangiovese","Sangiovese","12L","malate",36,36,0
+"bobeica_2015_sangiovese","Sangiovese","12L","tartrate",36,36,0
+"bobeica_2015_sangiovese","Sangiovese","12L","potassium",36,36,0
+"bobeica_2015_sangiovese","Sangiovese","12L","berry_FW",36,36,0
+"bobeica_2015_sangiovese","Sangiovese","12L","berry_DW",36,0,36
+"bobeica_2015_sangiovese","Sangiovese","12L","sugar",36,0,36
+"bobeica_2015_sangiovese","Sangiovese","12L","brix",36,36,0
+"bobeica_2015_sangiovese","Sangiovese","3L","temperature",40,40,0
+"bobeica_2015_sangiovese","Sangiovese","3L","pH",40,40,0
+"bobeica_2015_sangiovese","Sangiovese","3L","malate",40,40,0
+"bobeica_2015_sangiovese","Sangiovese","3L","tartrate",40,40,0
+"bobeica_2015_sangiovese","Sangiovese","3L","potassium",40,36,4
+"bobeica_2015_sangiovese","Sangiovese","3L","berry_FW",40,40,0
+"bobeica_2015_sangiovese","Sangiovese","3L","berry_DW",40,0,40
+"bobeica_2015_sangiovese","Sangiovese","3L","sugar",40,0,40
+"bobeica_2015_sangiovese","Sangiovese","3L","brix",40,40,0
+"etchebarne_2010_grenache","Grenache","A1","temperature",40,40,0
+"etchebarne_2010_grenache","Grenache","A1","pH",40,40,0
+"etchebarne_2010_grenache","Grenache","A1","malate",40,36,4
+"etchebarne_2010_grenache","Grenache","A1","tartrate",40,36,4
+"etchebarne_2010_grenache","Grenache","A1","potassium",40,40,0
+"etchebarne_2010_grenache","Grenache","A1","berry_FW",40,40,0
+"etchebarne_2010_grenache","Grenache","A1","berry_DW",40,40,0
+"etchebarne_2010_grenache","Grenache","A1","sugar",40,40,0
+"etchebarne_2010_grenache","Grenache","A1","brix",40,24,16
+"etchebarne_2010_grenache","Grenache","A2","temperature",40,40,0
+"etchebarne_2010_grenache","Grenache","A2","pH",40,40,0
+"etchebarne_2010_grenache","Grenache","A2","malate",40,36,4
+"etchebarne_2010_grenache","Grenache","A2","tartrate",40,36,4
+"etchebarne_2010_grenache","Grenache","A2","potassium",40,40,0
+"etchebarne_2010_grenache","Grenache","A2","berry_FW",40,40,0
+"etchebarne_2010_grenache","Grenache","A2","berry_DW",40,40,0
+"etchebarne_2010_grenache","Grenache","A2","sugar",40,40,0
+"etchebarne_2010_grenache","Grenache","A2","brix",40,24,16
+"etchebarne_2010_grenache","Grenache","B1","temperature",40,40,0
+"etchebarne_2010_grenache","Grenache","B1","pH",40,40,0
+"etchebarne_2010_grenache","Grenache","B1","malate",40,36,4
+"etchebarne_2010_grenache","Grenache","B1","tartrate",40,36,4
+"etchebarne_2010_grenache","Grenache","B1","potassium",40,40,0
+"etchebarne_2010_grenache","Grenache","B1","berry_FW",40,40,0
+"etchebarne_2010_grenache","Grenache","B1","berry_DW",40,40,0
+"etchebarne_2010_grenache","Grenache","B1","sugar",40,40,0
+"etchebarne_2010_grenache","Grenache","B1","brix",40,24,16
+"etchebarne_2010_grenache","Grenache","B2","temperature",40,40,0
+"etchebarne_2010_grenache","Grenache","B2","pH",40,40,0
+"etchebarne_2010_grenache","Grenache","B2","malate",40,36,4
+"etchebarne_2010_grenache","Grenache","B2","tartrate",40,36,4
+"etchebarne_2010_grenache","Grenache","B2","potassium",40,40,0
+"etchebarne_2010_grenache","Grenache","B2","berry_FW",40,40,0
+"etchebarne_2010_grenache","Grenache","B2","berry_DW",40,40,0
+"etchebarne_2010_grenache","Grenache","B2","sugar",40,40,0
+"etchebarne_2010_grenache","Grenache","B2","brix",40,24,16
+"etchebarne_2010_grenache","Grenache","CI","temperature",4,4,0
+"etchebarne_2010_grenache","Grenache","CI","pH",4,4,0
+"etchebarne_2010_grenache","Grenache","CI","malate",4,4,0
+"etchebarne_2010_grenache","Grenache","CI","tartrate",4,4,0
+"etchebarne_2010_grenache","Grenache","CI","potassium",4,4,0
+"etchebarne_2010_grenache","Grenache","CI","berry_FW",4,4,0
+"etchebarne_2010_grenache","Grenache","CI","berry_DW",4,4,0
+"etchebarne_2010_grenache","Grenache","CI","sugar",4,4,0
+"etchebarne_2010_grenache","Grenache","CI","brix",4,4,0
+"etchebarne_2010_grenache","Grenache","CNI","temperature",4,4,0
+"etchebarne_2010_grenache","Grenache","CNI","pH",4,4,0
+"etchebarne_2010_grenache","Grenache","CNI","malate",4,4,0
+"etchebarne_2010_grenache","Grenache","CNI","tartrate",4,4,0
+"etchebarne_2010_grenache","Grenache","CNI","potassium",4,4,0
+"etchebarne_2010_grenache","Grenache","CNI","berry_FW",4,4,0
+"etchebarne_2010_grenache","Grenache","CNI","berry_DW",4,4,0
+"etchebarne_2010_grenache","Grenache","CNI","sugar",4,4,0
+"etchebarne_2010_grenache","Grenache","CNI","brix",4,4,0
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","temperature",4,4,0
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","pH",4,4,0
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","malate",4,4,0
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","tartrate",4,4,0
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","potassium",4,4,0
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","berry_FW",4,4,0
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","berry_DW",4,4,0
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","sugar",4,4,0
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2","brix",4,0,4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","temperature",8,8,0
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","pH",8,8,0
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","malate",8,8,0
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","tartrate",8,8,0
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","potassium",8,4,4
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","berry_FW",8,8,0
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","berry_DW",8,8,0
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","sugar",8,0,8
+"etchebarne_2010_grenache","Grenache","POOLED_A1_A2_B1_B2","brix",8,0,8
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","temperature",4,4,0
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","pH",4,4,0
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","malate",4,4,0
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","tartrate",4,4,0
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","potassium",4,4,0
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","berry_FW",4,4,0
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","berry_DW",4,4,0
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","sugar",4,4,0
+"etchebarne_2010_grenache","Grenache","POOLED_B1_B2","brix",4,0,4
+"kliewer_lider_1970","Cardinal","HL_T20","temperature",5,5,0
+"kliewer_lider_1970","Cardinal","HL_T20","pH",5,5,0
+"kliewer_lider_1970","Cardinal","HL_T20","malate",5,5,0
+"kliewer_lider_1970","Cardinal","HL_T20","tartrate",5,5,0
+"kliewer_lider_1970","Cardinal","HL_T20","potassium",5,0,5
+"kliewer_lider_1970","Cardinal","HL_T20","berry_FW",5,5,0
+"kliewer_lider_1970","Cardinal","HL_T20","berry_DW",5,0,5
+"kliewer_lider_1970","Cardinal","HL_T20","sugar",5,0,5
+"kliewer_lider_1970","Cardinal","HL_T20","brix",5,5,0
+"kliewer_lider_1970","Cardinal","HL_T30","temperature",5,5,0
+"kliewer_lider_1970","Cardinal","HL_T30","pH",5,5,0
+"kliewer_lider_1970","Cardinal","HL_T30","malate",5,5,0
+"kliewer_lider_1970","Cardinal","HL_T30","tartrate",5,5,0
+"kliewer_lider_1970","Cardinal","HL_T30","potassium",5,0,5
+"kliewer_lider_1970","Cardinal","HL_T30","berry_FW",5,5,0
+"kliewer_lider_1970","Cardinal","HL_T30","berry_DW",5,0,5
+"kliewer_lider_1970","Cardinal","HL_T30","sugar",5,0,5
+"kliewer_lider_1970","Cardinal","HL_T30","brix",5,5,0
+"kliewer_lider_1970","Cardinal","LL_T20","temperature",5,5,0
+"kliewer_lider_1970","Cardinal","LL_T20","pH",5,5,0
+"kliewer_lider_1970","Cardinal","LL_T20","malate",5,5,0
+"kliewer_lider_1970","Cardinal","LL_T20","tartrate",5,5,0
+"kliewer_lider_1970","Cardinal","LL_T20","potassium",5,0,5
+"kliewer_lider_1970","Cardinal","LL_T20","berry_FW",5,5,0
+"kliewer_lider_1970","Cardinal","LL_T20","berry_DW",5,0,5
+"kliewer_lider_1970","Cardinal","LL_T20","sugar",5,0,5
+"kliewer_lider_1970","Cardinal","LL_T20","brix",5,5,0
+"kliewer_lider_1970","Cardinal","LL_T30","temperature",5,5,0
+"kliewer_lider_1970","Cardinal","LL_T30","pH",5,5,0
+"kliewer_lider_1970","Cardinal","LL_T30","malate",5,5,0
+"kliewer_lider_1970","Cardinal","LL_T30","tartrate",5,5,0
+"kliewer_lider_1970","Cardinal","LL_T30","potassium",5,0,5
+"kliewer_lider_1970","Cardinal","LL_T30","berry_FW",5,5,0
+"kliewer_lider_1970","Cardinal","LL_T30","berry_DW",5,0,5
+"kliewer_lider_1970","Cardinal","LL_T30","sugar",5,0,5
+"kliewer_lider_1970","Cardinal","LL_T30","brix",5,5,0
+"kliewer_lider_1970","Pinot Noir","HL_T20","temperature",5,5,0
+"kliewer_lider_1970","Pinot Noir","HL_T20","pH",5,5,0
+"kliewer_lider_1970","Pinot Noir","HL_T20","malate",5,5,0
+"kliewer_lider_1970","Pinot Noir","HL_T20","tartrate",5,5,0
+"kliewer_lider_1970","Pinot Noir","HL_T20","potassium",5,0,5
+"kliewer_lider_1970","Pinot Noir","HL_T20","berry_FW",5,5,0
+"kliewer_lider_1970","Pinot Noir","HL_T20","berry_DW",5,0,5
+"kliewer_lider_1970","Pinot Noir","HL_T20","sugar",5,0,5
+"kliewer_lider_1970","Pinot Noir","HL_T20","brix",5,5,0
+"kliewer_lider_1970","Pinot Noir","HL_T30","temperature",5,5,0
+"kliewer_lider_1970","Pinot Noir","HL_T30","pH",5,5,0
+"kliewer_lider_1970","Pinot Noir","HL_T30","malate",5,5,0
+"kliewer_lider_1970","Pinot Noir","HL_T30","tartrate",5,5,0
+"kliewer_lider_1970","Pinot Noir","HL_T30","potassium",5,0,5
+"kliewer_lider_1970","Pinot Noir","HL_T30","berry_FW",5,5,0
+"kliewer_lider_1970","Pinot Noir","HL_T30","berry_DW",5,0,5
+"kliewer_lider_1970","Pinot Noir","HL_T30","sugar",5,0,5
+"kliewer_lider_1970","Pinot Noir","HL_T30","brix",5,5,0
+"kliewer_lider_1970","Pinot Noir","LL_T20","temperature",5,5,0
+"kliewer_lider_1970","Pinot Noir","LL_T20","pH",5,5,0
+"kliewer_lider_1970","Pinot Noir","LL_T20","malate",5,5,0
+"kliewer_lider_1970","Pinot Noir","LL_T20","tartrate",5,5,0
+"kliewer_lider_1970","Pinot Noir","LL_T20","potassium",5,0,5
+"kliewer_lider_1970","Pinot Noir","LL_T20","berry_FW",5,5,0
+"kliewer_lider_1970","Pinot Noir","LL_T20","berry_DW",5,0,5
+"kliewer_lider_1970","Pinot Noir","LL_T20","sugar",5,0,5
+"kliewer_lider_1970","Pinot Noir","LL_T20","brix",5,5,0
+"kliewer_lider_1970","Pinot Noir","LL_T30","temperature",5,5,0
+"kliewer_lider_1970","Pinot Noir","LL_T30","pH",5,5,0
+"kliewer_lider_1970","Pinot Noir","LL_T30","malate",5,5,0
+"kliewer_lider_1970","Pinot Noir","LL_T30","tartrate",5,5,0
+"kliewer_lider_1970","Pinot Noir","LL_T30","potassium",5,0,5
+"kliewer_lider_1970","Pinot Noir","LL_T30","berry_FW",5,5,0
+"kliewer_lider_1970","Pinot Noir","LL_T30","berry_DW",5,0,5
+"kliewer_lider_1970","Pinot Noir","LL_T30","sugar",5,0,5
+"kliewer_lider_1970","Pinot Noir","LL_T30","brix",5,5,0
+"soyer_molot_1993","Cabernet Sauvignon","K0","temperature",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K0","pH",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K0","malate",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K0","tartrate",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K0","potassium",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K0","berry_FW",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K0","berry_DW",39,0,39
+"soyer_molot_1993","Cabernet Sauvignon","K0","sugar",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K0","brix",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K120","temperature",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K120","pH",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K120","malate",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K120","tartrate",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K120","potassium",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K120","berry_FW",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K120","berry_DW",39,0,39
+"soyer_molot_1993","Cabernet Sauvignon","K120","sugar",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K120","brix",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K60","temperature",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K60","pH",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K60","malate",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K60","tartrate",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K60","potassium",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K60","berry_FW",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K60","berry_DW",39,0,39
+"soyer_molot_1993","Cabernet Sauvignon","K60","sugar",39,39,0
+"soyer_molot_1993","Cabernet Sauvignon","K60","brix",39,39,0

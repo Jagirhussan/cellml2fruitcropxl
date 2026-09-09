@@ -1,0 +1,10 @@
+Command: bash tests/smoke_test/unitTest.sh
+Date: 2026-09-07 (Pacific/Auckland)
+Shell exit code: 0
+Embedded JUnit result: FAIL (73 run; 72 passed; 1 failed; 0 ignored)
+Failure: assertNodeCount(tests$ModelUnitTest) — Leaf array length mismatch: expected 16, got 4935.
+Additional runtime error emitted: ERROR(CT-SIMPLE-ROOT-DOUBLE-FOLD): layer=0 id=-1 foldStep=9
+Expected runtime warnings: OpenJDK -noverify deprecation; hsperfdata lock/performance warning.
+GroIMP platform log: .workspace/tmp/groimp_home_jzhu/.grogra.de-platform/log/platform12-0.xml
+Model_output/default updated: yes; plant-level-default.csv timestamp 2026-09-07 16:55:49 +1200.
+Scope note: the acid dataset package does not modify or exercise FruitCropXL model source. The baseline failure was reported and not repaired because the task explicitly excludes FruitCropXL changes.

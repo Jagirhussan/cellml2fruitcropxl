@@ -5,8 +5,8 @@
  * No jfruit2 dependency — the interfaces are in the same package as the model.
  *
  * This path provides step-driven simulation (compute/step/getOutput/getRawValues)
- * and is structurally compatible with jfruit2's Launch driver and FruitCropXL's
- * FruitService pattern.
+ * and a small delegation surface for a separate FruitCropXL adapter. It does
+ * not implement an interface from an external FruitCropXL/jfruit2 JAR.
  *
  * Compile: javac -cp <commons-math3.jar> gen/org/fruitcropxl/cellml/*.java examples/*.java
  * Run:     java -cp .:<commons-math3.jar> org.fruitcropxl.cellml.ServiceExample
@@ -32,7 +32,9 @@ public class ServiceExample {
         for (int s = 0; s < nSteps; s++) {
             int ageMin = (s + 1) * 60; // age in minutes
             // fromArray sets the forcing + time
-            svc.fromArray(ageMin, new double[]{0.01}); // pasfls = 0.01
+            // Demonstrate that the per-step input replaces the constructor's
+            // initial pasfls value before applyBoundaryConditions/equations.
+            svc.fromArray(ageMin, new double[]{0.02}); // pasfls = 0.02
             // step() does one RK4 integration step
             svc.step();
             // Read results via FruitServiceAPI

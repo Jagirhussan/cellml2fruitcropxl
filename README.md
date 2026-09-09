@@ -11,7 +11,7 @@ pip install -e .
 # Generate Java from a CellML model
 cellml2fruitcropxl --cellml model.cellml --package org.fruitcropxl.cellml --output-dir gen/
 
-# With FruitService wrapper (for FruitCropXL integration)
+# With package-local service wrapper (adapter surface for FruitCropXL)
 cellml2fruitcropxl --cellml model.cellml --package org.fruitcropxl.cellml --output-dir gen/ --with-fruit-service
 ```
 
@@ -34,7 +34,9 @@ gen/org/fruitcropxl/cellml/AbstractCellmlModel.java
 gen/org/fruitcropxl/cellml/Jfruit2Oracle.java
 ```
 
-The default package is `org.fruitcropxl.cellml` — this plugs directly into the FruitCropXL codebase.
+The default package is `org.fruitcropxl.cellml`. FruitCropXL can place the
+resulting JAR on its classpath; if it expects its own service interface, use an
+explicit adapter in FruitCropXL because Java interface typing is nominal.
 
 ## Architecture
 
@@ -91,7 +93,7 @@ Forcing the user to implement `applyBoundaryConditions` ensures:
 ### Without `--with-fruit-service` (default)
 
 The generated model only depends on:
-- **Apache Commons Math 3** (for `FirstOrderDifferentialEquations`) — available in the jfruit2 fat jar or standalone
+- **Apache Commons Math 3** (for `FirstOrderDifferentialEquations`)
 
 ### With `--with-fruit-service`
 
@@ -100,16 +102,62 @@ The tool also generates **package-local** `Model.java` and `FruitServiceAPI.java
 **Why provide a `Model` interface?** The `Model` interface (5 methods: `init`, `getOLength`, `getOutput`, `compute`, `link`) enables:
 1. **Step-driven simulation** — `compute()` advances one step, `getOutput()` reads results
 2. **Multi-model coupling** — `link(fms)` exchanges data between models
-3. **Structural compatibility with jfruit2** — if you later integrate with an existing jfruit2/`Launch`-based system, the interface is structurally compatible (same method signatures)
+3. **A small adapter surface** — an explicit adapter in FruitCropXL can delegate to these methods without adding a jfruit2 dependency to generated code
 
 **Two simulation modes** (see `examples/`):
 
 | Mode | Interfaces | Integrator | Example |
 |---|---|---|---|
 | **Standalone** (default) | `FirstOrderDifferentialEquations` only | User manages (commons-math3) | `StandaloneExample.java` |
-| **FruitService** (`--with-fruit-service`) | `Model` + `FruitServiceAPI` (package-local) | Wrapper owns RK4 | `ServiceExample.java` |
+| **Package-local service** (`--with-fruit-service`) | `Model` + `FruitServiceAPI` (package-local) | Wrapper owns RK4 | `ServiceExample.java` |
 
 Both modes use the **same model subclass** — the user only writes `applyBoundaryConditions` once.
+
+## Reproducible Apptainer environment
+
+For Linux x86-64 hosts, including newer distributions where the `libcellml 0.7.0`
+wheel no longer finds `libxml2.so.2`, build the Ubuntu 24.04 image:
+
+```bash
+scripts/apptainer-build.sh
+```
+
+The default image is `.apptainer/cellml2fruitcropxl-ubuntu24-py311.sif`. It
+contains Python 3.11, `libcellml==0.7.0`, OpenJDK 17, Apache Commons Math 3,
+and JupyterLab. The wrappers bind this checkout at
+`/workspace/cellml2fruitcropxl` and put its `src/` first on `PYTHONPATH`, so a
+host editor changes the code used by the container immediately.
+
+```bash
+# Interactive development shell
+scripts/apptainer-shell.sh
+
+# Run the live-source CLI
+scripts/apptainer-run.sh cellml2fruitcropxl --help
+
+# Generate Java from a tracked model
+scripts/apptainer-run.sh \
+  cellml2fruitcropxl \
+  --cellml cellml/jfruit2_oracle.cellml \
+  --package org.fruitcropxl.cellml \
+  --output-dir build/generated \
+  --force
+
+# Generate, inspect, compile, and numerically smoke-test repository models
+scripts/apptainer-test.sh
+
+# Optional localhost JupyterLab interface
+scripts/apptainer-jupyter.sh
+
+# Build the generated models as a JAR for FruitCropXL
+scripts/apptainer-jar.sh
+```
+
+See [apptainer/README.md](apptainer/README.md) for image overrides, fakeroot and
+sudo builds, Jupyter settings, remote-host use, metadata inspection, pinned
+versions, and the separate external-fixture EBM validation. See
+[docs/FRUITCROPXL_JAR.md](docs/FRUITCROPXL_JAR.md) for the complete model-to-JAR
+and FruitCropXL classpath workflow.
 
 ## Examples
 
@@ -177,7 +225,7 @@ Options:
   --cellml <path>           Path to the CellML (.cellml) file (required)
   --package <pkg>           Java package name (default: org.fruitcropxl.cellml)
   --output-dir <dir>        Output directory root (default: current directory)
-  --with-fruit-service      Also generate a FruitServiceAPI wrapper (adds jfruit2 dependency)
+  --with-fruit-service      Generate package-local service interfaces and wrapper (no jfruit2 dependency)
   --force                   Overwrite existing files
 ```
 
